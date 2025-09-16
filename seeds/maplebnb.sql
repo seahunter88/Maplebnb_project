@@ -1,11 +1,10 @@
-DROP TABLE IF EXISTS users;
-DROP SEQUENCE IF EXISTS users_id_seq;
 DROP TABLE IF EXISTS spaces;
 DROP SEQUENCE IF EXISTS spaces_id_seq;
+DROP TABLE IF EXISTS users;
+DROP SEQUENCE IF EXISTS users_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS users_id_seq;
 CREATE SEQUENCE IF NOT EXISTS spaces_id_seq;
-
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -13,13 +12,11 @@ CREATE TABLE users (
   password VARCHAR(255)
 );
 
--- Then the table with the foreign key second.
 CREATE TABLE spaces (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255),
   price int,
   description VARCHAR(255),
--- The foreign key name is always {other_table_singular}_id
   user_id int,
   constraint fk_user foreign key(user_id)
     references users(id)
