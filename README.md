@@ -32,7 +32,7 @@ Everyone in the team should then clone this fork to their local machine to work 
 (makersbnb-venv); open lib/database_connection.py
 
 # Run the tests (with extra logging)
-(makersbnb-venv); pytest -sv
+(makersbnb-venv); pytest
 
 # Run the app
 (makersbnb-venv); python app.py
