@@ -58,7 +58,7 @@ def test_is_valid_returns_true_for_string_username_and_password():
 
 def test_generate_errors_returns_string_if_username_blank():
     user_1 = User(1, '', 'Password!')
-    assert user_1.generate_errors() == "Username cannot be blank"
+    assert user_1.generate_errors() == "username cannot be blank"
 
 '''
 @generate_errors returns a string if password is blank
@@ -66,7 +66,7 @@ def test_generate_errors_returns_string_if_username_blank():
 
 def test_generate_errors_returns_string_if_password_blank():
     user_1 = User(1, 'Username', '')
-    assert user_1.generate_errors() == "Password cannot be blank"
+    assert user_1.generate_errors() == "password must be at least 8 characters long and have a special character"
 
 '''
 @generate_errors returns a string of errors if username and password are blank
@@ -74,7 +74,7 @@ def test_generate_errors_returns_string_if_password_blank():
 
 def test_generate_errors_returns_string_if_password_blank():
     user_1 = User(1, '', '')
-    assert user_1.generate_errors() == "Username cannot be blank, Password cannot be blank"
+    assert user_1.generate_errors() == "username cannot be blank, password must be at least 8 characters long and have a special character"
     
 '''
 @is_valid returns False when the password is less than 8 chars.
@@ -88,17 +88,49 @@ def test_is_valid_returns_false_when_password_too_short():
 @check_length returns False when password is too short
 '''
 
-def test_check_length_returns_false_when_password_is_too_short():
+def test_check_password_length_returns_false_when_password_is_too_short():
     user_1 = User(1, 'username', '1234567')
-    assert user_1.check_length() == False
+    assert user_1.check_password_length() == False
     
 '''
-@check_length returns True when password is correct length
+@check_length returns False when password is too long
 '''
 
-def test_check_length_returns_true_when_password_is_too_short():
+def test_check_password_length_returns_false_when_password_is_too_long():
+    user_1 = User(1, 'username', '123456712345671234567')
+    assert user_1.check_password_length() == False
+    
+'''
+@check_password_length returns True when password is correct length
+'''
+
+def test_check_password_length_returns_true_when_password_is_long_enough():
     user_1 = User(1, 'username', '12345678')
-    assert user_1.check_length() == True
+    assert user_1.check_password_length() == True
+    
+'''
+@check_username_length returns True when username is correct length
+'''
+
+def test_check_username_length_returns_true_when_username_is_long_enough():
+    user_1 = User(1, 'username', '12345678')
+    assert user_1.check_username_length() == True
+    
+'''
+@check_username_length returns False when username is too short
+'''
+
+def test_check_username_length_returns_true_when_username_is_too_short():
+    user_1 = User(1, 'bob', '12345678')
+    assert user_1.check_username_length() == False
+    
+'''
+@check_username_length returns False when username is too long
+'''
+
+def test_check_username_length_returns_true_when_username_is_too_long():
+    user_1 = User(1, 'bobbobbobbobbobbobbob', '12345678')
+    assert user_1.check_username_length() == False
     
 '''
 @special_chars returns False when the password does not contain a special character.
@@ -126,12 +158,19 @@ def test_is_valid_returns_false_when_password_does_not_have_special_character():
     assert user_1.is_valid() == False
   
   
-# need to implement errors when password length is too short while not being triggered when the password is blank  
-# '''
-# @generate_errors returns a string of errors if password isn't long enough
-# '''
+'''
+@generate_errors returns a string of errors if password isn't long enough
+'''
 
-# def test_generate_errors_returns_string_if_password_is_too_short():
-#     user_1 = User(1, 'username', '1234567')
-#     assert user_1.generate_errors() == "Password must be at least 8 characters long"
+def test_generate_errors_returns_string_if_password_is_too_short():
+    user_1 = User(1, 'username', '1234567')
+    assert user_1.generate_errors() == "password must be at least 8 characters long and have a special character"
+    
+'''
+@generate_errors returns a string of errors if the password doesn't contain a special char
+'''
+
+def test_generate_errors_returns_string_if_password_does_not_have_special_char():
+    user_1 = User(1, 'username', '12345678')
+    assert user_1.generate_errors() == "password must be at least 8 characters long and have a special character"
     
