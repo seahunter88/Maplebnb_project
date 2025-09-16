@@ -41,6 +41,8 @@ def create_user():
     username = request.form['username']
     password = request.form['password']
     user = User(None, username, password)
+    if not user.is_valid():
+        return render_template('users/signup.html')
     repo.create(user)
     return redirect('/welcome')
 
