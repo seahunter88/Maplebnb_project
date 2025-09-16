@@ -20,15 +20,17 @@ def test_get_index(page, test_web_address):
 We can render the show_spaces page
 """
 def test_show_spaces(page, test_web_address):
-    # We load a virtual browser and navigate to the /index page
     page.goto(f"http://{test_web_address}/spaces")
-
-    # We look at the <p> tag
-    p_tag = page.locator("p")
-
-    # We assert that it has the text "This is the homepage."
-    expect(p_tag).to_have_text("SHOW SPACES")
+    h1_tag = page.locator("h1")
+    h2_tag = page.locator("h2")
+    expect(h1_tag).to_have_text("All Spaces")
+    expect(h2_tag).to_have_text([
+        "House_1",
+        "House_2"
+    ])
     
+
+
 
 """
 POST /signin
