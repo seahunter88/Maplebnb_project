@@ -1,4 +1,4 @@
-from lib.users import User
+from lib.user import User
 
 class UserRepository:
     def __init__(self, connection):

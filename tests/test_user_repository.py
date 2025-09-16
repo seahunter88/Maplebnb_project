@@ -1,5 +1,5 @@
-from lib.users_repository import UserRepository
-from lib.users import User
+from lib.user_repository import UserRepository
+from lib.user import User
 
 '''
 we can instantiate the user repository
