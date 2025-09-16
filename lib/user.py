@@ -29,11 +29,11 @@ class User:
     
     def generate_errors(self):
         errors = []
-        if self.username == None or self.username == "":
+        if not self.check_username_length():
             errors.append("username cannot be blank")
-        if self.password == None or self.password == "" or not self.check_password_length() or not self.special_chars():
+        if not self.check_password_length() or not self.special_chars():
             errors.append("password must be at least 8 characters long and have a special character")
-        if len(errors) == 0:
-            return None
-        else:
+        if len(errors) > 0:
             return ", ".join(errors)
+        return None
+        
