@@ -29,10 +29,11 @@ def show_spaces():
     return render_template('show_spaces.html', spaces = spaces)
 
 @app.route('/spaces/<int:space_id>', methods=['GET'])
-def show_one_space():
+def show_one_space(space_id):
     connection = get_flask_database_connection(app)
     repo = SpaceRepository(connection)
-    space = repo.read_one_space()
+    space = repo.read_one_space(space_id)
+    return render_template('show_one_space.html', space = space)
 
 @app.route('/signup', methods = ['POST'])
 def create_user():
