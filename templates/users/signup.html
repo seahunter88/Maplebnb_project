@@ -8,6 +8,11 @@
         <p>
 
         <form action="/signup", method="POST">
+            {%if errors%}
+            <div class="t-errors">
+                Here are your errors: {{errors}}
+            </div>
+            {%endif%}
                 <p>
                     <label for="username">Username</label>
                     <br>
@@ -16,7 +21,7 @@
                     <label for="password">Password</label>
                     <br>
                     <input type="text" name="password" id="password"></p>
-                <p><input type="submit" value="Create a new account"></p>    
+                <p><input type="submit" value="Create a new account"></p>
         </p>
     </body>
 </html>
