@@ -9,3 +9,21 @@ class User:
 
     def __repr__(self):
         return f'User({self.id}, {self.username}, {self.password})'
+
+    def is_valid(self):
+        if self.username == None or self.username == "":
+            return False
+        if self.password == None or self.password == "":
+            return False
+        return True
+
+    def generate_errors(self):
+        errors = []
+        if self.username == None or self.username == "":
+            errors.append("Username cannot be blank")
+        if self.password == None or self.password == "":
+            errors.append("Password cannot be blank")
+        if len(errors) == 0:
+            return None
+        else:
+            return ", ".join(errors)
