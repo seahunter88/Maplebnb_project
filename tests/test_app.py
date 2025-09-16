@@ -10,10 +10,12 @@ def test_get_index(page, test_web_address):
     page.goto(f"http://{test_web_address}/index")
 
     # We look at the <p> tag
-    p_tag = page.locator("p")
+    p_tag_1 = page.locator(".t-homepage")
+    p_tag_2 = page.locator(".t-signup")
 
     # We assert that it has the text "This is the homepage."
-    expect(p_tag).to_have_text("This is the homepage.")
+    expect(p_tag_1).to_have_text("This is the homepage.")
+    expect(p_tag_2).to_have_text("Create an Account")
     
 
 """
