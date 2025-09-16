@@ -12,6 +12,9 @@ class UserRepository:
             ]
         
     def create(self, user):
-        table = self._connection.execute("INSERT INTO users (username, password) VALUES (%s, %s)", [user.username, user.password])
-        return user
+        table = self._connection.execute("INSERT INTO users (username, password) VALUES (%s, %s) RETURNING id", [user.username, user.password])
+        row = table[0]
+        user.id = row['id']
+        return None
+
 
