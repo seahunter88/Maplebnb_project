@@ -10,4 +10,8 @@ class UserRepository:
             User(row["id"], row["username"], row["password"])
             for row in table
             ]
+        
+    def create(self, user):
+        table = self._connection.execute("INSERT INTO users (username, password) VALUES (%s, %s)", [user.username, user.password])
+        return user
 
