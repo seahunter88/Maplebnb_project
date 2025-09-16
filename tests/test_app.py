@@ -38,11 +38,11 @@ POST /signin
   Expected response (200 OK):
   "Welcome back Leo12345!"
 """
-# def test_post_signup(page, test_web_address, db_connection):
-#     page.set_default_timeout(1000)
-#     db_connection.seed('seeds/maplebnb.sql')
-#     page.goto(f'http://{test_web_address}/signup')
-#     page.fill("input[username=username]", 'Leo12345')
-#     page.fill("input[password=password]", 'password!')
-#     page.click("text=Create a new account")
-#     expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
+def test_post_signup(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", 'Leo12345')
+    page.fill("input[name=password]", 'password!')
+    page.click("text=Create a new account")
+    expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
