@@ -2,6 +2,8 @@ import os
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
 
+"ANYTHING ON LINE 5"
+
 # Create a new Flask app
 app = Flask(__name__)
 
