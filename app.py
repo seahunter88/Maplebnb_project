@@ -1,6 +1,8 @@
 import os
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
+from lib.user_repository import UserRepository
+from lib.user import User
 
 "ANYTHING ON LINE 5"
 
@@ -16,6 +18,18 @@ app = Flask(__name__)
 @app.route('/index', methods=['GET'])
 def get_index():
     return render_template('index.html')
+
+@app.route('/signup', methods = ['POST'])
+def create_user():
+    connection = get_flask_database_connection(app)
+    repo = UserRepository(connection)
+    id = request.form['id']
+    username = request.form['username']
+    password = request.form['password']
+    user = User(id, username, password)
+    repo.create(user)
+    
+
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
