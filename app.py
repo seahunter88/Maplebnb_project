@@ -43,7 +43,8 @@ def create_user():
     password = request.form['password']
     user = User(None, username, password)
     if not user.is_valid():
-        return render_template('users/signup.html')
+        errors = user.generate_errors()
+        return render_template('users/signup.html', errors=errors)
     repo.create(user)
     return redirect('/welcome')
 

@@ -10,10 +10,12 @@ def test_get_index(page, test_web_address):
     page.goto(f"http://{test_web_address}/index")
 
     # We look at the <p> tag
-    p_tag = page.locator("p")
+    p_tag_1 = page.locator(".t-homepage")
+    p_tag_2 = page.locator(".t-signup")
 
     # We assert that it has the text "This is the homepage."
-    expect(p_tag).to_have_text("This is the homepage.")
+    expect(p_tag_1).to_have_text("This is the homepage.")
+    expect(p_tag_2).to_have_text("Create an Account")
     
 
 """
@@ -57,3 +59,58 @@ def test_post_signup(page, test_web_address, db_connection):
     page.fill("input[name=password]", 'password!')
     page.click("text=Create a new account")
     expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
+
+
+'''
+POST /signin
+  Parameters:
+    username: ""
+    password: password!
+  Expected response (200 OK):
+  "Here are your errors: Username cannot be blank
+'''
+
+def test_post_signup_with_blank_username(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", '')
+    page.fill("input[name=password]", 'password!')
+    page.click("text=Create a new account")
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: Username cannot be blank')
+
+    '''
+POST /signin
+  Parameters:
+    username: username
+    password: ""
+  Expected response (200 OK):
+  "Here are your errors: Password cannot be blank
+'''
+
+def test_post_signup_with_blank_password(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", 'Username')
+    page.fill("input[name=password]", '')
+    page.click("text=Create a new account")
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: Password cannot be blank')
+
+    '''
+POST /signin
+  Parameters:
+    username: username
+    password: ""
+  Expected response (200 OK):
+  "Here are your errors: Password cannot be blank
+'''
+
+def test_post_signup_with_blank_password_and_username(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", '')
+    page.fill("input[name=password]", '')
+    page.click("text=Create a new account")
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: Username cannot be blank, Password cannot be blank')

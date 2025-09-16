@@ -15,7 +15,21 @@ class User:
             return False
         if self.password == None or self.password == "":
             return False
+        if self.check_length() == False:
+            return False
+        if self.special_chars() == False:
+            return False
         return True
+    
+    def special_chars(self):
+        special_chars = '!@$%&'
+        return any(char in self.password for char in special_chars)
+    
+    def check_length(self):
+        if len(self.password) < 8:
+            return False
+        else:
+            return True
 
     def generate_errors(self):
         errors = []
@@ -23,6 +37,8 @@ class User:
             errors.append("Username cannot be blank")
         if self.password == None or self.password == "":
             errors.append("Password cannot be blank")
+        # if self.check_length() == False:
+        #     errors.append("Password must be at least 8 characters long")
         if len(errors) == 0:
             return None
         else:
