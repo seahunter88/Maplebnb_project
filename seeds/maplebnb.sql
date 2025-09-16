@@ -26,8 +26,8 @@ CREATE TABLE spaces (
     on delete cascade
 );
 
-INSERT INTO users (username, password) VALUES ('Sarahmonster9000', 'Iloveponies');
-INSERT INTO users (username, password) VALUES ('HunoristheGOAT', 'Pokemon');
+INSERT INTO users (username, password) VALUES ('Sarahmonster9000', 'Iloveponies!');
+INSERT INTO users (username, password) VALUES ('HunoristheGOAT', 'Pokemon$');
 
 INSERT INTO spaces (title, price, description, user_id) VALUES ('House_1', '100', 'a nice house', 1);
 INSERT INTO spaces (title, price, description, user_id) VALUES ('House_2', '150', 'a nicer house', 1);
