@@ -3,6 +3,8 @@ from flask import Flask, request, render_template, redirect
 from lib.database_connection import get_flask_database_connection
 from lib.user_repository import UserRepository
 from lib.user import User
+from lib.space_repository import SpaceRepository
+from lib.space import Space
 
 "ANYTHING ON LINE 5"
 
@@ -18,6 +20,20 @@ app = Flask(__name__)
 @app.route('/index', methods=['GET'])
 def get_index():
     return render_template('index.html')
+
+@app.route('/spaces', methods=['GET'])
+def show_spaces():
+    connection = get_flask_database_connection(app)
+    repo = SpaceRepository(connection)
+    spaces = repo.read_all_spaces()
+    return render_template('show_spaces.html', spaces = spaces)
+
+@app.route('/spaces/<int:space_id>', methods=['GET'])
+def show_one_space(space_id):
+    connection = get_flask_database_connection(app)
+    repo = SpaceRepository(connection)
+    space = repo.read_one_space(space_id)
+    return render_template('show_one_space.html', space = space)
 
 @app.route('/signup', methods = ['POST'])
 def create_user():
@@ -39,6 +55,8 @@ def welcome_user():
 @app.route('/signup')
 def signup_user():
     return render_template('users/signup.html')
+
+
 
 
 # These lines start the server if you run this file directly
