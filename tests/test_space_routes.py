@@ -13,7 +13,9 @@ def test_show_spaces(page, test_web_address):
         "House_2"
     ])
     
-
+"""
+we can render specific spaces on their on detailed view /spaces/<space_id>
+"""  
 def test_get_first_space(page, db_connection, test_web_address):
     db_connection.seed('seeds/maplebnb.sql')
     page.goto(f'http://{test_web_address}/spaces/1')
