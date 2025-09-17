@@ -35,3 +35,12 @@ def test_get_second_space(page, db_connection, test_web_address):
     expect(h1_tag).to_have_text(["House_2"])
     expect(h2_tag).to_have_text(["Price per night: 150"])
     expect(h3_tag).to_have_text(["Description: a nicer house"])
+
+"""
+We can get from the welcome page to show all spaces page
+"""
+def test_welcome_page_link_to_show_all_spaces(page, db_connection, test_web_address):
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/welcome')
+    page.click("text=Browse Spaces")
+    expect(page.locator('h1')).to_have_text("All Spaces")
