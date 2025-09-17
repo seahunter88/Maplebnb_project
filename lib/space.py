@@ -25,3 +25,15 @@ class Space():
     
     def check_description(self):
         return isinstance(self.description, str) and len(self.description.split()) >= 3
+    
+    def generate_errors(self):
+        errors = []
+        if not self.check_title():
+            errors.append("title must be 4-20 characters in length")
+        if not self.check_price():
+            errors.append("price must be at least 20")
+        if not self.check_description():
+            errors.append("a description must be at least 3 words in length")
+        if len(errors) > 0:
+            return ", ".join(errors)
+        return None
