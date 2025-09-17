@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Signin</title>
+    </head>
+    <body>
+        <p>
+
+        <form action="/signin", method="POST">
+            {%if errors%}
+            <div class="t-errors">
+                Here are your errors: {{errors}}
+            </div>
+            {%endif%}
+                <p>

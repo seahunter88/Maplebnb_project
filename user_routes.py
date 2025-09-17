@@ -38,7 +38,13 @@ def apply_user_routes(app):
         user = User(None, username, password)
         if not user.is_valid():
             errors = user.generate_errors()
-            return render_template('users/signup.html', errors=errors)
-        repo.find(user)
+            return render_template('users/signin.html', errors=errors)
+        repo.find(username)
         return redirect('/welcome')
+    
+    @app.route('/signin')
+    def signin_userget():
+        return render_template('users/signin.html')
+    
+
     
