@@ -66,7 +66,7 @@ def test_generate_errors_returns_string_if_username_blank():
 
 def test_generate_errors_returns_string_if_password_blank():
     user_1 = User(1, 'Username', '')
-    assert user_1.generate_errors() == "password must be at least 8 characters long and have a special character"
+    assert user_1.generate_errors() == "password must be 8-16 characters in length and contain a special character"
 
 '''
 @generate_errors returns a string of errors if username and password are blank
@@ -74,7 +74,7 @@ def test_generate_errors_returns_string_if_password_blank():
 
 def test_generate_errors_returns_string_if_password_blank():
     user_1 = User(1, '', '')
-    assert user_1.generate_errors() == "username cannot be blank, password must be at least 8 characters long and have a special character"
+    assert user_1.generate_errors() == "username cannot be blank, password must be 8-16 characters in length and contain a special character"
     
 '''
 @is_valid returns False when the password is less than 8 chars.
@@ -164,7 +164,7 @@ def test_is_valid_returns_false_when_password_does_not_have_special_character():
 
 def test_generate_errors_returns_string_if_password_is_too_short():
     user_1 = User(1, 'username', '1234567')
-    assert user_1.generate_errors() == "password must be at least 8 characters long and have a special character"
+    assert user_1.generate_errors() == "password must be 8-16 characters in length and contain a special character"
     
 '''
 @generate_errors returns a string of errors if the password doesn't contain a special char
@@ -172,5 +172,5 @@ def test_generate_errors_returns_string_if_password_is_too_short():
 
 def test_generate_errors_returns_string_if_password_does_not_have_special_char():
     user_1 = User(1, 'username', '12345678')
-    assert user_1.generate_errors() == "password must be at least 8 characters long and have a special character"
+    assert user_1.generate_errors() == "password must be 8-16 characters in length and contain a special character"
     

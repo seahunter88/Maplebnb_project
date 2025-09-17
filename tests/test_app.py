@@ -95,7 +95,7 @@ def test_post_signup_with_blank_password(page, test_web_address, db_connection):
     page.fill("input[name=username]", 'Username')
     page.fill("input[name=password]", '')
     page.click("text=Create a new account")
-    expect(page.locator('.t-errors')).to_have_text('Here are your errors: password must be at least 8 characters long and have a special character')
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: password must be 8-16 characters in length and contain a special character')
 
     '''
 POST /signin
@@ -113,4 +113,4 @@ def test_post_signup_with_blank_password_and_username(page, test_web_address, db
     page.fill("input[name=username]", '')
     page.fill("input[name=password]", '')
     page.click("text=Create a new account")
-    expect(page.locator('.t-errors')).to_have_text('Here are your errors: username cannot be blank, password must be at least 8 characters long and have a special character')
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: username cannot be blank, password must be 8-16 characters in length and contain a special character')
