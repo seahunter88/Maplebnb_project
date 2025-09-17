@@ -16,7 +16,7 @@ def apply_user_routes(app):
             errors = user.generate_errors()
             return render_template('users/signup.html', errors=errors)
 
-        if not repo.check_username_is_unique(username):
+        if repo.check_username_is_unique(username) == False:
             duplicate_username_error = "Username is already in use."
             return render_template('users/signup.html', duplicate_username_error=duplicate_username_error)
 
