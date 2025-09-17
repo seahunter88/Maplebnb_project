@@ -7,12 +7,19 @@
     <body>
         <p>
 
-        <form action="/signup", method="POST">
+        <form action="/signup" method="POST">
             {%if errors%}
             <div class="t-errors">
                 Here are your errors: {{errors}}
             </div>
             {%endif%}
+
+            {%if duplicate_username_error%}
+            <div class="t-duplicate_username_error">
+                {{duplicate_username_errors}}
+            </div>
+            {%endif%}
+
                 <p>
                     <label for="username">Username</label>
                     <br>

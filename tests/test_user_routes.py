@@ -86,8 +86,25 @@ def test_post_signin(page, test_web_address, db_connection):
     page.fill("input[name=username]", 'Leo12345')
     page.fill("input[name=password]", 'password!')
     page.click("text=Create a new account")
-    page.goto(f'http://{test_web_address}/signin')
+    page.goto(f'http://{test_web_address}/')
     page.fill("input[name=username]", 'Leo12345')
     page.fill("input[name=password]", 'password!')
     page.click("text=Sign In")
     expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
+
+'''
+when there is a duplicate username in the database, show an error when signing up
+'''
+
+def test_post_signup_with_duplicate_username(page, test_web_address, db_connection):
+    page.set_default_timeout(5000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", 'Username12345')
+    page.fill("input[name=password]", 'Password12345')
+    page.click("text=Create a new account")
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", 'Username12345')
+    page.fill("input[name=password]", 'Password!')
+    page.click("text=Create a new account")
+    expect(page.locator('.t-duplicate_username_error')).to_have_text('Username is already in use.')

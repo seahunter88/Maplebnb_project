@@ -7,7 +7,7 @@
     <body>
         <p>
 
-        <form action="/signin", method="POST">
+        <form action="/", method="POST">
             {%if errors%}
             <div class="t-errors">
                 Here are your errors: {{errors}}
@@ -29,6 +29,8 @@
                     <br>
                     <input type="text" name="password" id="password"></p>
                 <p><input type="submit" value="Sign In"></p>
+
+                <p><a href="/signup">Sign Up</a></p>
         </p>
     </body>
 </html>

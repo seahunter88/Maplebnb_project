@@ -14,9 +14,15 @@ def apply_user_routes(app):
         username = request.form['username']
         password = request.form['password']
         user = User(None, username, password)
+
         if not user.is_valid():
             errors = user.generate_errors()
             return render_template('users/signup.html', errors=errors)
+
+        if not repo.check_username_is_unique(username):
+            duplicate_username_error = "Username is already in use."
+            return render_template('users/signup.html', duplicate_username_error=duplicate_username_error)
+
         repo.create(user)
         return redirect('/welcome')
 
@@ -29,7 +35,7 @@ def apply_user_routes(app):
         return render_template('users/signup.html')
 
 
-    @app.route('/signin', methods = ['POST'])
+    @app.route('/', methods = ['POST'])
     def find_user():
         connection = get_flask_database_connection(app)
         repo = UserRepository(connection)
@@ -50,7 +56,7 @@ def apply_user_routes(app):
 
         return redirect('/welcome')
 
-    @app.route('/signin')
+    @app.route('/')
     def signin_user():
         return render_template('users/signin.html')
 
