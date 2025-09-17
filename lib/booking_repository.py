@@ -16,5 +16,12 @@ class BookingRepository:
         row = table[0]
         booking.id = row['id']
         return None
+    
+    def read_bookings_one_space(self, space_id):
+        table = self._connection.execute("SELECT * FROM bookings WHERE space_id = %s", [space_id])
+        return [
+            Booking(row["id"], row["booking_date"], row["space_id"], row["booking_user_id"])
+            for row in table
+            ]
 
 
