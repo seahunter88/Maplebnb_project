@@ -35,15 +35,15 @@ Testing space title must be between 4 and 20 characters in length
 """
 def test_title_length_is_appropriate():
     space = Space(1, 'test house', 1, 'desc', 1)
-    assert space.check_title_length() == True
+    assert space.check_title() == True
 
 def test_title_length_too_short():
     space = Space(1, 't', 1, 'desc', 1)
-    assert space.check_title_length() == False
+    assert space.check_title() == False
 
 def test_title_length_too_long():
     space = Space(1, 'abcdabcdabcdabcdabcda', 1, 'desc', 1)
-    assert space.check_title_length() == False
+    assert space.check_title() == False
 
 """
 Testing space price is a number
@@ -51,3 +51,21 @@ Testing space price is a number
 def test_price_is_number():
     space = Space(1, 'test house', 100, 'desc', 1)
     assert space.check_price() == True
+
+"""
+test space price is at least 20
+"""
+def test_price_is_above_at_least_20():
+    space = Space(1, 'test house', 20, 'desc', 1)
+    assert space.check_price() == True
+
+"""
+test space description is over 3 words
+"""
+def test_desc_more_than_3_words():
+    space = Space(1, 'test house', 20, 'this is my description which passses', 1)
+    assert space.check_description() == True
+
+def test_desc_less_than_3_words():
+    space = Space(1, 'test house', 20, 'Description', 1)
+    assert space.check_description() == False
