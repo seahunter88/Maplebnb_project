@@ -21,40 +21,13 @@ app = Flask(__name__)
 def get_index():
     return render_template('index.html')
 
-@app.route('/spaces', methods=['GET'])
-def show_spaces():
-    connection = get_flask_database_connection(app)
-    repo = SpaceRepository(connection)
-    spaces = repo.read_all_spaces()
-    return render_template('spaces/show_spaces.html', spaces = spaces)
+from user_routes import apply_user_routes
+from space_routes import apply_space_routes
 
-@app.route('/spaces/<int:space_id>', methods=['GET'])
-def show_one_space(space_id):
-    connection = get_flask_database_connection(app)
-    repo = SpaceRepository(connection)
-    space = repo.read_one_space(space_id)
-    return render_template('spaces/show_one_space.html', space = space)
+apply_user_routes(app)
+apply_space_routes(app)
 
-@app.route('/signup', methods = ['POST'])
-def create_user():
-    connection = get_flask_database_connection(app)
-    repo = UserRepository(connection)
-    username = request.form['username']
-    password = request.form['password']
-    user = User(None, username, password)
-    if not user.is_valid():
-        errors = user.generate_errors()
-        return render_template('users/signup.html', errors=errors)
-    repo.create(user)
-    return redirect('/welcome')
 
-@app.route('/welcome')
-def welcome_user():
-    return render_template('users/welcome.html')
-
-@app.route('/signup')
-def signup_user():
-    return render_template('users/signup.html')
 
 
 
