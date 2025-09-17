@@ -97,7 +97,7 @@ when there is a duplicate username in the database, show an error when signing u
 '''
 
 def test_post_signup_with_duplicate_username(page, test_web_address, db_connection):
-    page.set_default_timeout(5000)
+    page.set_default_timeout(1000)
     db_connection.seed('seeds/maplebnb.sql')
     page.goto(f'http://{test_web_address}/signup')
     page.fill("input[name=username]", 'Username12345')
@@ -107,4 +107,5 @@ def test_post_signup_with_duplicate_username(page, test_web_address, db_connecti
     page.fill("input[name=username]", 'Username12345')
     page.fill("input[name=password]", 'Password!')
     page.click("text=Create a new account")
+    print("Current URL after second submit:", page.url)
     expect(page.locator('.t-duplicate_username_error')).to_have_text('Username is already in use.')
