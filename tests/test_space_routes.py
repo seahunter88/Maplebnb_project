@@ -3,7 +3,8 @@ from playwright.sync_api import Page, expect
 """
 We can render the show_spaces page
 """
-def test_show_spaces(page, test_web_address):
+def test_show_spaces(page, db_connection, test_web_address):
+    db_connection.seed('seeds/maplebnb.sql')
     page.goto(f"http://{test_web_address}/spaces")
     h1_tag = page.locator("h1")
     h2_tag = page.locator("h2")
