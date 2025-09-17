@@ -1,10 +1,6 @@
-import os
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
-from lib.user_repository import UserRepository
-from lib.user import User
 from lib.space_repository import SpaceRepository
-from lib.space import Space
 
 def apply_space_routes(app):
     @app.route('/spaces', methods=['GET'])
