@@ -66,3 +66,12 @@ def test_show_all_spaces_link_to_house_2(page, db_connection, test_web_address):
     expect(page.locator('h1')).to_have_text("House_2")
     expect(page.locator('h2')).to_have_text("Price per night: 150")
     expect(page.locator('h3')).to_have_text("Description: a nicer house")
+
+"""
+We can return from a specified space page back to show all spaces
+"""
+def test_return_to_show_all(page, db_connection, test_web_address):
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/spaces/1')
+    page.click("text=Back to Spaces")
+    expect(page.locator('h1')).to_have_text("All Spaces")
