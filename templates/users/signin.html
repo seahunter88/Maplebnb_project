@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Signin</title>
+        <title>Sign In</title>
     </head>
     <body>
         <p>
@@ -13,4 +13,22 @@
                 Here are your errors: {{errors}}
             </div>
             {%endif%}
+
+            {% if user_not_found %}
+            <div class="t-errors">
+                {{user_not_found }}
+            </div>
+            {% endif %}
+
                 <p>
+                    <label for="username">Username</label>
+                    <br>
+                    <input type="text" name="username" id="username"></p>
+                <p>
+                    <label for="password">Password</label>
+                    <br>
+                    <input type="text" name="password" id="password"></p>
+                <p><input type="submit" value="Sign In"></p>
+        </p>
+    </body>
+</html>

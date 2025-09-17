@@ -85,5 +85,5 @@ def test_post_signin(page, test_web_address, db_connection):
     page.goto(f'http://{test_web_address}/signin')
     page.fill("input[name=username]", 'Leo12345')
     page.fill("input[name=password]", 'password!')
-    page.click("text=Submit")
+    page.click("text=Sign In")
     expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')

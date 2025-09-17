@@ -27,24 +27,31 @@ def apply_user_routes(app):
     @app.route('/signup')
     def signup_user():
         return render_template('users/signup.html')
-    
-    
+
+
     @app.route('/signin', methods = ['POST'])
-    def signin_user():
+    def find_user():
         connection = get_flask_database_connection(app)
         repo = UserRepository(connection)
+
         username = request.form['username']
         password = request.form['password']
         user = User(None, username, password)
+
         if not user.is_valid():
             errors = user.generate_errors()
             return render_template('users/signin.html', errors=errors)
-        repo.find(username)
-        return redirect('/welcome')
-    
-    @app.route('/signin')
-    def signin_userget():
-        return render_template('users/signin.html')
-    
 
-    
+        db_user = repo.find(username, password)
+
+        if db_user is None:
+            user_not_found = 'An account with those details is not found.'
+            return render_template('users/signin.html', user_not_found=user_not_found)
+
+        return redirect('/welcome')
+
+    @app.route('/signin')
+    def signin_user():
+        return render_template('users/signin.html')
+
+
