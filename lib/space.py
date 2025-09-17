@@ -13,9 +13,9 @@ class Space():
         return f"Space({self.id}, {self.title}, {self.price}, {self.description}, {self.user_id})"
     
     def is_valid(self):
-        return self.check_title \
-            and self.check_price \
-            and self.check_description
+        return self.check_title() \
+            and self.check_price() \
+            and self.check_description()
 
     def check_title(self):
         return len(self.title) >= 4 and len(self.title) <= 20
