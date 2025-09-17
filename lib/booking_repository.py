@@ -16,5 +16,8 @@ class BookingRepository:
         row = table[0]
         booking.id = row['id']
         return None
+    
+    def read_bookings_one_space():
+        pass
 
 

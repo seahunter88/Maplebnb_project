@@ -43,4 +43,12 @@ def test_create_booking_adds_booking_to_database(db_connection):
         Booking(3, date(2025, 10, 15), 1, 2)
     ]
 
+'''
+when we call @read_bookings_one_space with a space_id
+it returns all the bookings associated with that space_id.
+'''
 
+def test_create_booking_adds_booking_to_database(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking = Booking(3, '2025-10-15', 1, 2)
