@@ -18,13 +18,12 @@ POST /create_booking
   Expected response (200 OK):
   "Create a booking!"
 """
-def test_get_create_booking(page, test_web_address, db_connection):
+def test_post_create_booking(page, test_web_address, db_connection):
     page.set_default_timeout(1000)
     db_connection.seed('seeds/maplebnb.sql')
-    page.goto(f'http://{test_web_address}/create_booking')
-    expect(page.locator('h1')).to_have_text('Create a booking!')
+    page.goto(f'http://{test_web_address}/spaces/1')
+    expect(page.locator('h1')).to_have_text('House_1')
     page.fill("input[name=booking_date]", '2025-10-17')
-    page.fill("input[name=space_id]", '1')
     page.fill("input[name=booking_user_id]", '1')
     page.click("text=Create booking")
     expect(page.locator('h1')).to_have_text('Booking created!')
