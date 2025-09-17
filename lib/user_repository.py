@@ -17,4 +17,9 @@ class UserRepository:
         user.id = row['id']
         return None
 
+    def find(self, username):
+        table = self._connection.execute("SELECT id, username, password FROM users WHERE username = (%s)", [username])
+        row = table[0]
+        return User(row['id'], row['username'], row['password'])
+
 

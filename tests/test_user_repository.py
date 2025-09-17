@@ -39,3 +39,15 @@ def test_create_user_adds_user_to_database(db_connection):
         User(3, 'Username', 'Password!')
     ]
 
+'''
+when we call @find, we read a user from the database
+'''
+
+def test_find_user_reads_user_from_database(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    results = repo.find('Sarahmonster9000') 
+    assert results == User(1, 'Sarahmonster9000', 'Iloveponies!')
+    
+
+

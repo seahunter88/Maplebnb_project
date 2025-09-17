@@ -27,3 +27,18 @@ def apply_user_routes(app):
     @app.route('/signup')
     def signup_user():
         return render_template('users/signup.html')
+    
+    
+    @app.route('/signin', methods = ['POST'])
+    def signin_user():
+        connection = get_flask_database_connection(app)
+        repo = UserRepository(connection)
+        username = request.form['username']
+        password = request.form['password']
+        user = User(None, username, password)
+        if not user.is_valid():
+            errors = user.generate_errors()
+            return render_template('users/signup.html', errors=errors)
+        repo.find(user)
+        return redirect('/welcome')
+    
