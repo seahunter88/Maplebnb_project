@@ -84,3 +84,11 @@ def test_error_when_only_price_is_invalid():
 def test_error_when_only_description_is_invalid():
     space = Space(1, 'test house', 20, 'Description', 1)
     assert space.generate_errors() == "a description must be at least 3 words in length"
+
+def test_error_when_title_price_invalid():
+    space = Space(1, 'te', 1, "this is my description which passses", 1)
+    assert space.generate_errors() == "title must be 4-20 characters in length, price must be at least 20"
+
+def test_error_when_all_invalid():
+    space = Space(1, 'te', 1, 'fail', 1)
+    assert space.generate_errors() =="title must be 4-20 characters in length, price must be at least 20, a description must be at least 3 words in length"
