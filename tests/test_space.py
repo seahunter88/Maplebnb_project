@@ -92,3 +92,18 @@ def test_error_when_title_price_invalid():
 def test_error_when_all_invalid():
     space = Space(1, 'te', 1, 'fail', 1)
     assert space.generate_errors() =="title must be 4-20 characters in length, price must be at least 20, a description must be at least 3 words in length"
+
+"""
+testing is_valid()
+"""
+def test_is_valid_all_valid():
+    space = Space(1, 'test house', 20, 'this is my description which passses', 1)
+    assert space.is_valid() == True
+
+def test_is_valid_one_not_valid():
+    space = Space(1, 'test house', 2, 'this is my description which passses', 1)
+    assert space.is_valid() == False
+
+def test_is_valid_multiple_not_valid():
+    space = Space(1, 'te', 2, 'this is my description which passses', 1)
+    assert space.is_valid() == False
