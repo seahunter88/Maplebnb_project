@@ -28,6 +28,21 @@ def test_post_create_booking(page, test_web_address, db_connection):
     page.click("text=Create booking")
     expect(page.locator('h1')).to_have_text('Booking created!')
 
+"""
+GET /booking_confirmation
+  Parameters: None
+  Expected response (200 OK):
+  "Create a booking!"
+"""
+def test_link_from_booking_confirmation_to_welcome_page(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/booking_confirmation')
+    expect(page.locator('h1')).to_have_text('Booking created!')
+    page.click("text=Go to welcome page")
+    expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
+
+
 
 
 # """
