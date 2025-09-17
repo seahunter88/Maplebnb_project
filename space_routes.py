@@ -23,12 +23,16 @@ def apply_space_routes(app):
         connection = get_flask_database_connection(app)
         repo = SpaceRepository(connection)
         title = request.form['title']
-        price = request.form['price']
+        price = int(request.form['price'])
         description = request.form['description']
         user_id = request.form['user_id']
         space = Space(None, title, price, description, user_id)
         if not space.is_valid():
             errors = space.generate_errors()
-            return render_template('spaces/new_space.html', error=errors)
+            return render_template('spaces/new_space.html', errors=errors)
         repo.create_space(space)
         return redirect('/spaces')
+    
+    @app.route('/spaces/new')
+    def create_space():
+        return render_template('spaces/new_space.html')
