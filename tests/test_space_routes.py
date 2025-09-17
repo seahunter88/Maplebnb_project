@@ -3,7 +3,8 @@ from playwright.sync_api import Page, expect
 """
 We can render the show_spaces page
 """
-def test_show_spaces(page, test_web_address):
+def test_show_spaces(page, db_connection, test_web_address):
+    db_connection.seed('seeds/maplebnb.sql')
     page.goto(f"http://{test_web_address}/spaces")
     h1_tag = page.locator("h1")
     h2_tag = page.locator("h2")
@@ -25,6 +26,25 @@ def test_get_first_space(page, db_connection, test_web_address):
     expect(h1_tag).to_have_text(["House_1"])
     expect(h2_tag).to_have_text(["Price per night: 100"])
     expect(h3_tag).to_have_text(["Description: a nice house"])
+    
+"""
+when we render specific spaces on their detailed view we can see
+their booked dates
+"""  
+def test_get_first_space_bookings(page, db_connection, test_web_address):
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/spaces/1')
+    h1_tag = page.locator('h1')
+    expect(h1_tag).to_have_text(["House_1"])
+    h4_tag = page.locator('h4')
+    expect(h4_tag).to_have_text(["Current Bookings"])
+    h5_tag = page.locator('h5')
+    expect(h5_tag).to_have_text([
+        '2025-09-17'
+    ])
+    
+    
+
 
 def test_get_second_space(page, db_connection, test_web_address):
     db_connection.seed('seeds/maplebnb.sql')
