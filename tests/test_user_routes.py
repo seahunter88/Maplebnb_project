@@ -82,6 +82,10 @@ POST /signin
 def test_post_signin(page, test_web_address, db_connection):
     page.set_default_timeout(1000)
     db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", 'Leo12345')
+    page.fill("input[name=password]", 'password!')
+    page.click("text=Create a new account")
     page.goto(f'http://{test_web_address}/signin')
     page.fill("input[name=username]", 'Leo12345')
     page.fill("input[name=password]", 'password!')
