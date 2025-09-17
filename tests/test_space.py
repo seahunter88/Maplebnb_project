@@ -29,3 +29,25 @@ Testing that space is formatting in a readable way.
 def test_make_it_a_string():
     space = Space(1, 'test space', 100, 'This is a test space.', 1)
     assert str(space)== "Space(1, test space, 100, This is a test space., 1)"
+
+"""
+Testing space title must be between 4 and 20 characters in length
+"""
+def test_title_length_is_appropriate():
+    space = Space(1, 'test house', 1, 'desc', 1)
+    assert space.check_title_length() == True
+
+def test_title_length_too_short():
+    space = Space(1, 't', 1, 'desc', 1)
+    assert space.check_title_length() == False
+
+def test_title_length_too_long():
+    space = Space(1, 'abcdabcdabcdabcdabcda', 1, 'desc', 1)
+    assert space.check_title_length() == False
+
+"""
+Testing space price is a number
+"""
+def test_price_is_number():
+    space = Space(1, 'test house', 100, 'desc', 1)
+    assert space.check_price() == True
