@@ -58,7 +58,7 @@ def test_is_valid_returns_true_for_string_username_and_password():
 
 def test_generate_errors_returns_string_if_username_blank():
     user_1 = User(1, '', 'Password!')
-    assert user_1.generate_errors() == "username cannot be blank"
+    assert user_1.generate_errors() == "username must be 4-16 characters in length"
 
 '''
 @generate_errors returns a string if password is blank
@@ -72,9 +72,9 @@ def test_generate_errors_returns_string_if_password_blank():
 @generate_errors returns a string of errors if username and password are blank
 '''
 
-def test_generate_errors_returns_string_if_password_blank():
+def test_generate_errors_returns_string_if_username_and_password_blank():
     user_1 = User(1, '', '')
-    assert user_1.generate_errors() == "username cannot be blank, password must be 8-16 characters in length and contain a special character"
+    assert user_1.generate_errors() == "username must be 4-16 characters in length, password must be 8-16 characters in length and contain a special character"
     
 '''
 @is_valid returns False when the password is less than 8 chars.
