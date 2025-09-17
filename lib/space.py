@@ -11,3 +11,9 @@ class Space():
     
     def __repr__(self):
         return f"Space({self.id}, {self.title}, {self.price}, {self.description}, {self.user_id})"
+    
+    def check_title_length(self):
+        return len(self.title) >= 4 and len(self.title) <= 20
+    
+    def check_price(self):
+        return isinstance(self.price, int)
