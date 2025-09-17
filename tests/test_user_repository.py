@@ -56,8 +56,8 @@ when we create a user, if the username is already in the database then it will s
 def test_create_user_shows_error_when_username_is_not_unique(db_connection):
     db_connection.seed('seeds/maplebnb.sql')
     repo = UserRepository(db_connection)
-    user_1 = User(1, 'Username123', 'Password!')
-    user_2 = User(2, 'Username123', 'Password123!')
+    user_1 = User(1, 'Username123', 'Password!', 'Password!')
+    user_2 = User(2, 'Username123', 'Password123!', 'Password123!')
     repo.create(user_1)
     result = repo.create(user_2)
     assert result == "Username is already in use."

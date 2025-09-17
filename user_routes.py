@@ -10,7 +10,8 @@ def apply_user_routes(app):
         repo = UserRepository(connection)
         username = request.form['username']
         password = request.form['password']
-        user = User(None, username, password)
+        confirm_password = request.form['confirm_password']
+        user = User(None, username, password, confirm_password)
 
         if not user.is_valid():
             errors = user.generate_errors()
@@ -31,15 +32,14 @@ def apply_user_routes(app):
     def signup_user():
         return render_template('users/signup.html')
 
-
     @app.route('/', methods = ['POST'])
     def find_user():
         connection = get_flask_database_connection(app)
         repo = UserRepository(connection)
-
         username = request.form['username']
         password = request.form['password']
-        user = User(None, username, password)
+        confirm_password = request.form['confirm_password']
+        user = User(None, username, password, confirm_password)
 
         if not user.is_valid():
             errors = user.generate_errors()
