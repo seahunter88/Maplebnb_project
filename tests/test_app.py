@@ -77,7 +77,7 @@ def test_post_signup_with_blank_username(page, test_web_address, db_connection):
     page.fill("input[name=username]", '')
     page.fill("input[name=password]", 'password!')
     page.click("text=Create a new account")
-    expect(page.locator('.t-errors')).to_have_text('Here are your errors: username cannot be blank')
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: username must be 4-16 characters in length')
 
     '''
 POST /signin
@@ -113,4 +113,4 @@ def test_post_signup_with_blank_password_and_username(page, test_web_address, db
     page.fill("input[name=username]", '')
     page.fill("input[name=password]", '')
     page.click("text=Create a new account")
-    expect(page.locator('.t-errors')).to_have_text('Here are your errors: username cannot be blank, password must be 8-16 characters in length and contain a special character')
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: username must be 4-16 characters in length, password must be 8-16 characters in length and contain a special character')

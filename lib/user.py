@@ -30,7 +30,7 @@ class User:
     def generate_errors(self):
         errors = []
         if not self.check_username_length():
-            errors.append("username cannot be blank")
+            errors.append("username must be 4-16 characters in length")
         if not self.check_password_length() or not self.special_chars():
             errors.append("password must be 8-16 characters in length and contain a special character")
         if len(errors) > 0:
