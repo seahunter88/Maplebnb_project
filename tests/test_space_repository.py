@@ -21,3 +21,14 @@ def test_read_one_space(db_connection):
     repo = SpaceRepository(db_connection)
     space = repo.read_one_space(1)
     assert space == Space(1, 'House_1', 100, 'a nice house', 1)
+
+"""
+We can create a space with a Title, Price, Description, and a owner/user_id
+"""
+def test_create_space(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = SpaceRepository(db_connection)
+    new_space = Space(None, "House_3", 50, "a not so nice house", 2)
+    repo.create_space(new_space)
+    space = repo.read_one_space(3)
+    assert space == Space(3, 'House_3', 50, 'a not so nice house', 2)

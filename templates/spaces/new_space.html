@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create A Space</title>
+    </head>
+    <body>
+        <form action="/spaces/new", method="POST">
+            {%if errors%}
+            <div class="t-errors">
+                Here are your errors: {{errors}}
+            </div>
+            {%endif%}
+            <div class="create-a-space-form">
+                <p>
+                    <label for="title">Space Title</label>
+                    <br>
+                    <input type="text" name="title" id="title">
+                </p>
+                <p>
+                    <label for="price">Price per night</label>
+                    <br>
+                    <input type="text" name="price" id="price">
+                </p>
+                <p>
+                    <label for="description">Description</label>
+                    <br>
+                    <input type="text" name="description" id="description">
+                </p>
+                <p>
+                    <label for="user_id">User ID</label>
+                    <br>
+                    <input type="text" name="user_id" id="user_id">
+                </p>     
+                <p><input type="submit" value="Create a new Space"></p>
+            </div>
+        </form>
+    </body>
+</html>
