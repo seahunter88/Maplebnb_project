@@ -32,7 +32,7 @@ class User:
         if not self.check_username_length():
             errors.append("username cannot be blank")
         if not self.check_password_length() or not self.special_chars():
-            errors.append("password must be at least 8 characters long and have a special character")
+            errors.append("password must be 8-16 characters in length and contain a special character")
         if len(errors) > 0:
             return ", ".join(errors)
         return None
