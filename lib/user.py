@@ -4,8 +4,7 @@ class User:
     def __init__(self, id, username, password, confirm_password=None):
         self.id = id
         self.username = username
-        self.raw_password = password
-        self.password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+        self.password = password
         self.confirm_password = confirm_password
 
     def __eq__(self, other):
