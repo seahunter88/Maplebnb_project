@@ -173,4 +173,37 @@ def test_check_bookings_unique_returns_false_for_unique_bookings(db_connection):
     booking_1 = Booking(3, '2025-08-17', 2, 2)
     assert repo.check_booking_is_unique(booking_1) == False
     
+'''
+when we create a new booking that IS a duplicate,
+with a different user_id
+check_bookings_unique returns false
+'''
+
+def test_check_bookings_unique_returns_false_for_unique_bookings_2(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(3, '2025-08-17', 2, 1)
+    assert repo.check_booking_is_unique(booking_1) == False
+    
+'''
+when we create a new booking that IS a duplicate,
+and use the @create method
+check_bookings_unique will return false
+create does not add to database
+we cannot see the new booking from the @all method
+'''
+
+def test_create_bookings_uses_check_booking_unique(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(3, '2025-09-17', 1, 1)
+    repo.create(booking_1)
+    assert repo.check_booking_is_unique(booking_1) == False
+    assert repo.all() == [
+        Booking(1, date(2025, 9, 17), 1, 1),
+        Booking(2, date(2025, 8, 17), 2, 2)
+    ]
+    
+    
+    
     
