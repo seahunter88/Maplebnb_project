@@ -30,7 +30,14 @@
                     <label for="booking_user_id">Booking User ID</label>
                     <br>
                     <input type="text" name="booking_user_id" id="booking_user_id"></p>
-                <p><input type="submit" value="Create booking"></p>
+                
+                    {%if not unique%}
+                        <div class="t-errors">
+                            Unfortunately this space is being used for a Pokemon convention on that date, please try a different date.
+                        </div>
+                    {%endif%}
+
+                    <p><input type="submit" value="Create booking"></p>
         </p>
 
         <p class="back_to_spaces"><a href="/spaces">Back to Spaces</a></p>

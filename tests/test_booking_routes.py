@@ -164,3 +164,20 @@ def test_create_booking_shows_in_my_bookings(page, test_web_address, db_connecti
       '2025-09-17',
       '2025-10-17'
     ])
+
+"""
+When I try to create a duplicate booking, 
+it re-renders the show_one_space page, does not redirect to booking_confirmation
+This duplicate booking is NOT shown in the list of unavailable dates
+"""
+def test_duplicate_booking_is_not_redirected(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/spaces/1')
+    expect(page.locator('h1')).to_have_text('House_1')
+    page.fill("input[name=booking_date]", '2025-09-17')
+    page.fill("input[name=booking_user_id]", '1')
+    page.click("text=Create booking")
+    expect(page.locator('h1')).to_have_text('House_1')
+    expect(page.locator('h5')).to_have_text('2025-09-17')
+    expect(page.locator('.t-errors')).to_have_text('Unfortunately this space is being used for a Pokemon convention on that date, please try a different date.')

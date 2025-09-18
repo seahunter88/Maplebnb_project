@@ -14,16 +14,17 @@ def apply_booking_routes(app):
     @app.route('/spaces/<int:space_id>', methods = ['POST'])
     def post_create_booking(space_id):
         connection = get_flask_database_connection(app)
+        space_repo = SpaceRepository(connection)
+        space = space_repo.read_one_space(space_id)
         booking_repo = BookingRepository(connection)
+        bookings = booking_repo.read_bookings_one_space(space_id)
         booking_date = request.form['booking_date']
         booking_user_id = request.form['booking_user_id']
         booking = Booking(None, booking_date, space_id, booking_user_id)
-        # if not user.is_valid():
-        #     errors = user.generate_errors()
-        #     return render_template('users/signup.html', errors=errors)
+        unique = booking_repo.check_booking_is_unique(booking)
+        if not booking_repo.check_booking_is_unique(booking):
+            return render_template('/spaces/show_one_space.html', space = space, bookings = bookings, unique = unique)
         booking_repo.create(booking)
-        # return render_template('/spaces/show_one_space.html', space = space) 
-            # and sleep(3) \
         return redirect('/booking_confirmation')
 
     @app.route('/booking_confirmation', methods= ["GET"])
