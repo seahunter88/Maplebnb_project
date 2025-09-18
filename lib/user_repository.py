@@ -1,4 +1,5 @@
 from lib.user import User
+import hashlib
 
 class UserRepository:
     def __init__(self, connection):
@@ -20,7 +21,8 @@ class UserRepository:
         return "Username is already in use."
 
     def find(self, username, password):
-        table = self._connection.execute("SELECT id, username, password FROM users WHERE (username, password) = (%s, %s)", [username, password])
+        hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+        table = self._connection.execute("SELECT id, username, password FROM users WHERE (username, password) = (%s, %s)", [username, hashed_password])
 
         if not table:
             return None
