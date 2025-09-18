@@ -29,6 +29,7 @@ class UserRepository:
             return None
 
         return User(row['id'], row['username'], row['password'])
+    
 
     def check_username_is_unique(self, username):
         table = self._connection.execute("SELECT * FROM users WHERE username = %s", [username])

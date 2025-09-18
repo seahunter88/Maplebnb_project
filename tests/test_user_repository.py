@@ -62,3 +62,5 @@ def test_create_user_shows_error_when_username_is_not_unique(db_connection):
     result = repo.create(user_2)
     assert result == "Username is already in use."
 
+
+
