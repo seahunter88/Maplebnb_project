@@ -20,6 +20,12 @@
             </div>
             {%endif%}
 
+             {%if password_mismatch_error%}
+            <div class="t-password_mismatch_error">
+                {{password_mismatch_error}}
+            </div>
+            {%endif%}
+
                 <p>
                     <label for="username">Username</label>
                     <br>

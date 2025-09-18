@@ -13,7 +13,7 @@ def apply_user_routes(app):
         confirm_password = request.form['confirm_password']
         user = User(None, username, password, confirm_password)
 
-        if not user.is_valid():
+        if not user.is_valid() or not user.check_passwords_match():
             errors = user.generate_errors()
             return render_template('users/signup.html', errors=errors)
 

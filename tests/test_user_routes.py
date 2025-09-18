@@ -132,7 +132,7 @@ def test_post_signup_with_mismatching_passwords(page, test_web_address, db_conne
     page.fill("input[name=password]", 'Password12345!')
     page.fill("input[name=confirm_password]", 'Password123!')
     page.click("text=Create a new account")
-    expect(page.locator('.t-errors')).to_have_text('Here are your errors: Passwords do not match')
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: passwords do not match')
 
 '''
 when passwords do match on sign up, the user is shown the welcome page
