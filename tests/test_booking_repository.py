@@ -197,7 +197,6 @@ def test_create_bookings_uses_check_booking_unique(db_connection):
     db_connection.seed('seeds/maplebnb.sql')
     repo = BookingRepository(db_connection)
     booking_1 = Booking(3, '2025-09-17', 1, 1)
-    assert repo.create(booking_1) == "Unfortunately this space is being used for a Pokemon convention on that date, please try a different date."
     assert repo.check_booking_is_unique(booking_1) == False
     assert repo.all() == [
         Booking(1, date(2025, 9, 17), 1, 1),
@@ -205,5 +204,24 @@ def test_create_bookings_uses_check_booking_unique(db_connection):
     ]
     
     
+'''
+if a booking is a duplicate, we get a string from generate_errors()
+'''
+
+def test_generate_errors_returns_string(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(1, '2025-09-17', 1, 1)
+    assert repo.check_booking_is_unique(booking_1) == False
+    assert repo.generate_errors(booking_1) == "Unfortunately this space is being used for a Pokemon convention on that date, please try a different date."
     
-    
+'''
+if a booking is NOT a duplicate, we do not get a string from generate_errors()
+'''
+
+def test_generate_errors_does_not_return_string(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(1, '2025-09-19', 1, 1)
+    assert repo.check_booking_is_unique(booking_1) == True
+    assert repo.generate_errors(booking_1) == None

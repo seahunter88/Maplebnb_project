@@ -21,9 +21,9 @@ def apply_booking_routes(app):
         booking_date = request.form['booking_date']
         booking_user_id = request.form['booking_user_id']
         booking = Booking(None, booking_date, space_id, booking_user_id)
-        unique = booking_repo.check_booking_is_unique(booking)
-        if not booking_repo.check_booking_is_unique(booking):
-            return render_template('/spaces/show_one_space.html', space = space, bookings = bookings, unique = unique)
+        if not booking.is_valid():
+            errors = booking.generate_errors()
+            return render_template('bookings/show_one_space.html', errors=errors, bookings=bookings, space=space)
         booking_repo.create(booking)
         return redirect('/booking_confirmation')
 

@@ -17,11 +17,21 @@ class BookingRepository:
             row = table[0]
             booking.id = row['id']
             return None
-        return "Unfortunately this space is being used for a Pokemon convention on that date, please try a different date."
+        return None
+
     
     def check_booking_is_unique(self, booking):
         table = self._connection.execute("SELECT * FROM bookings WHERE booking_date = %s AND space_id = %s", [booking.booking_date, booking.space_id])
         return table == []
+    
+    def generate_errors(self, booking):
+        errors = []
+        if not self.check_booking_is_unique(booking):
+            errors.append("Unfortunately this space is being used for a Pokemon convention on that date, please try a different date.")
+        if len(errors) > 0:
+            return ", ".join(errors)
+        return None
+    
     
     def read_bookings_one_space(self, space_id):
         table = self._connection.execute("SELECT * FROM bookings WHERE space_id = %s", [space_id])
