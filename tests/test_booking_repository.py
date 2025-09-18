@@ -128,3 +128,49 @@ def test_create_booking_then_read_bookings_one_user(db_connection):
         Booking(2, date(2025, 8, 17), 2, 2),
         Booking(3, date(2025, 10, 15), 1, 2)
     ]
+    
+'''
+when we create a new booking that is not a duplicate,
+check_bookings_unique returns true
+'''
+
+def test_check_bookings_unique_returns_true_for_unique_bookings(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(3, '2025-10-15', 1, 2)
+    assert repo.check_booking_is_unique(booking_1) == True
+    
+'''
+when we create a new booking that is not a duplicate,
+check_bookings_unique returns true
+'''
+
+def test_check_bookings_unique_returns_true_for_unique_bookings_2(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(3, '2025-10-15', 2, 2)
+    assert repo.check_booking_is_unique(booking_1) == True
+    
+'''
+when we create a new booking that is not a duplicate,
+check_bookings_unique returns true
+'''
+
+def test_check_bookings_unique_returns_true_for_unique_bookings_3(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(3, '2025-08-17', 1, 2)
+    assert repo.check_booking_is_unique(booking_1) == True
+    
+'''
+when we create a new booking that IS a duplicate,
+check_bookings_unique returns false
+'''
+
+def test_check_bookings_unique_returns_false_for_unique_bookings(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(3, '2025-08-17', 2, 2)
+    assert repo.check_booking_is_unique(booking_1) == False
+    
+    

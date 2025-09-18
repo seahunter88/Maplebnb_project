@@ -17,6 +17,22 @@ class BookingRepository:
         booking.id = row['id']
         return None
     
+    def check_booking_is_unique(self, booking):
+        table = self._connection.execute("SELECT * FROM bookings WHERE booking_date = %s AND space_id = %s", [booking.booking_date, booking.space_id])
+        return table == []
+    
+    # def create(self, user):
+    #     if self.check_username_is_unique(user.username):
+    #         table = self._connection.execute("INSERT INTO users (username, password) VALUES (%s, %s) RETURNING id", [user.username, user.password])
+    #         row = table[0]
+    #         user.id = row['id']
+    #         return None
+    #     return "Username is already in use."
+    
+    # def check_username_is_unique(self, username):
+    #     table = self._connection.execute("SELECT * FROM users WHERE username = %s", [username])
+    #     return table == []
+    
     def read_bookings_one_space(self, space_id):
         table = self._connection.execute("SELECT * FROM bookings WHERE space_id = %s", [space_id])
         return [
