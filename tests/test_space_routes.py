@@ -24,7 +24,7 @@ def test_get_first_space(page, db_connection, test_web_address):
     h2_tag = page.locator('h2')
     h3_tag = page.locator('h3')
     expect(h1_tag).to_have_text(["House_1"])
-    expect(h2_tag).to_have_text(["Price per night: 100"])
+    expect(h2_tag).to_have_text(["Price per night: £100"])
     expect(h3_tag).to_have_text(["Description: a nice house"])
     
 """
@@ -42,9 +42,6 @@ def test_get_first_space_bookings(page, db_connection, test_web_address):
     expect(h5_tag).to_have_text([
         '2025-09-17'
     ])
-    
-    
-
 
 def test_get_second_space(page, db_connection, test_web_address):
     db_connection.seed('seeds/maplebnb.sql')
@@ -53,7 +50,7 @@ def test_get_second_space(page, db_connection, test_web_address):
     h2_tag = page.locator('h2')
     h3_tag = page.locator('h3')
     expect(h1_tag).to_have_text(["House_2"])
-    expect(h2_tag).to_have_text(["Price per night: 150"])
+    expect(h2_tag).to_have_text(["Price per night: £150"])
     expect(h3_tag).to_have_text(["Description: a nicer house"])
 
 """
@@ -73,7 +70,7 @@ def test_show_all_spaces_link_to_house_1(page, db_connection, test_web_address):
     page.goto(f'http://{test_web_address}/spaces')
     page.click("text=House_1")
     expect(page.locator('h1')).to_have_text("House_1")
-    expect(page.locator('h2')).to_have_text("Price per night: 100")
+    expect(page.locator('h2')).to_have_text("Price per night: £100")
     expect(page.locator('h3')).to_have_text("Description: a nice house")
 
 """
@@ -84,7 +81,7 @@ def test_show_all_spaces_link_to_house_2(page, db_connection, test_web_address):
     page.goto(f'http://{test_web_address}/spaces')
     page.click("text=House_2")
     expect(page.locator('h1')).to_have_text("House_2")
-    expect(page.locator('h2')).to_have_text("Price per night: 150")
+    expect(page.locator('h2')).to_have_text("Price per night: £150")
     expect(page.locator('h3')).to_have_text("Description: a nicer house")
 
 """
