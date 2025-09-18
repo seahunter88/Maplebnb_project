@@ -16,7 +16,13 @@
 
             {%if duplicate_username_error%}
             <div class="t-duplicate_username_error">
-                {{duplicate_username_errors}}
+                {{duplicate_username_error}}
+            </div>
+            {%endif%}
+
+             {%if password_mismatch_error%}
+            <div class="t-password_mismatch_error">
+                {{password_mismatch_error}}
             </div>
             {%endif%}
 
@@ -28,7 +34,12 @@
                     <label for="password">Password</label>
                     <br>
                     <input type="text" name="password" id="password"></p>
+                <p>
+                    <label for="password">Confirm password</label>
+                    <br>
+                    <input type="text" name="confirm_password" id="confirm_password"></p>
                 <p><input type="submit" value="Create a new account"></p>
+                 <p><a href="/">Sign In</a></p>
         </p>
     </body>
 </html>
