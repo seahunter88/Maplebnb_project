@@ -16,7 +16,8 @@ class User:
     def is_valid(self):
         return self.check_username_length() \
             and self.check_password_length() \
-            and self.special_chars()
+            and self.special_chars() \
+            and self.check_passwords_match()
 
     def check_username_length(self):
         return len(self.username) >= 4 and len(self.username) <= 16
@@ -40,7 +41,7 @@ class User:
         if not self.check_password_length() or not self.special_chars():
             errors.append("password must be 8-16 characters in length and contain a special character")
         if not self.check_passwords_match():
-            errors.append("passwords do not match")
+            errors.append("Passwords do not match")
         if len(errors) > 0:
             return ", ".join(errors)
         return None
