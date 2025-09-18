@@ -1,3 +1,56 @@
 body {
-    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec),
+                linear-gradient(135deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(315deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+    background-size: auto;
+    background-blend-mode: overlay;
+    color: #333;
+}
+
+.page_title {
+    text-align: center;         
+    margin: 20px auto;          
+    font-size: 2.5rem;          
+    max-width: 90%;             
+    line-height: 1.2;
+}
+
+.card_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.space_card{
+    border: 1px solid #948b8b;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    width: 250px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.space_card:hover{
+    background-color: rgb(227, 224, 224);
+}
+
+@media (max-width: 768px) {
+    .card_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .card_grid {
+        grid-template-columns: 1fr;
+    }
 }
