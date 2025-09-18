@@ -69,3 +69,22 @@ def test_create_user_shows_error_when_username_is_not_unique(db_connection):
     result = repo.create(user_2)
     assert result == "Username is already in use."
 
+'''
+we want to test that a users password is stored as a hash in the database
+'''
+
+def test_password_is_stored_as_hash(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    raw_password = 'I_hate_tests%'
+    user_1 = User(1, 'Username999', raw_password)
+    repo.create(user_1)
+    hashed_password = hashlib.sha256(raw_password.encode("utf-8")).hexdigest()
+    result = repo.find('Username999', raw_password) 
+    assert result.password == hashed_password 
+
+    
+
+
+
+
