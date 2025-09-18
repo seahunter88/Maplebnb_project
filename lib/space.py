@@ -35,5 +35,5 @@ class Space():
         if not self.check_description():
             errors.append("a description must be at least 3 words in length")
         if len(errors) > 0:
-            return ", ".join(errors)
+            return errors
         return None

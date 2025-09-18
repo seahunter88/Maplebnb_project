@@ -3,15 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>Create A Space</title>
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
+        <h1 class="page_title">Create a Space</h1>
         <form action="/spaces/new", method="POST">
-            {%if errors%}
-            <div class="t-errors">
-                Here are your errors: {{errors}}
-            </div>
-            {%endif%}
-            <div class="create-a-space-form">
+            <div class="form" style="margin: auto;">
                 <p>
                     <label for="title">Space Title</label>
                     <br>
@@ -33,6 +30,16 @@
                     <input type="text" name="user_id" id="user_id">
                 </p>     
                 <p><input type="submit" value="Create a new Space"></p>
+            {%if errors%}
+            <div class="t-errors">
+                Here are your errors:
+                {% for error in errors %}
+                <li>
+                    {{error}}
+                </li>
+                {% endfor %}
+            </div>
+            {%endif%}
             </div>
         </form>
     </body>
