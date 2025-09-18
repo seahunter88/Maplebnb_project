@@ -37,7 +37,7 @@ def test_get_first_space_bookings(page, db_connection, test_web_address):
     h1_tag = page.locator('h1')
     expect(h1_tag).to_have_text(["House_1"])
     h4_tag = page.locator('h4')
-    expect(h4_tag).to_have_text(["Current Bookings"])
+    expect(h4_tag).to_have_text(["This space is not available on the following dates:"])
     h5_tag = page.locator('h5')
     expect(h5_tag).to_have_text([
         '2025-09-17'
