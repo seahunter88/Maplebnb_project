@@ -36,3 +36,8 @@ def apply_booking_routes(app):
         booking_repo = BookingRepository(connection)
         bookings = booking_repo.read_bookings_one_user(booking_user_id)
         return render_template('bookings/my_bookings.html', bookings = bookings)
+    
+    @app.route('/welcome', methods = ['POST'])
+    def post_my_bookings():
+        user_id = request.form['user_id']
+        return redirect(f'/my_bookings/{user_id}')

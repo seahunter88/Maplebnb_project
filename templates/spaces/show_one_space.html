@@ -9,7 +9,7 @@
         <h2>Price per night: {{space.price}}</h2>
         <h3>Description: {{space.description}}</h3>
 
-        <h4>Current Bookings</h4>
+        <h4>This space is not available on the following dates:</h4>
         {% for booking in bookings %}
             
             <article>
@@ -25,10 +25,7 @@
                     <label for="booking_date">Booking Date (YYYY-MM-DD)</label>
                     <br>
                     <input type="text" name="booking_date" id="booking_date"></p>
-                <!-- <p>
-                    <label for="space_id">Space ID</label>
-                    <br>
-                    <input type="text" name="space_id" id="space_id"></p> -->
+                
                 <p>
                     <label for="booking_user_id">Booking User ID</label>
                     <br>
