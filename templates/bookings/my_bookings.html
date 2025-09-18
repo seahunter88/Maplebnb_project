@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>My Bookings:</title>
+    </head>
+    <body>
+        <h1>My Bookings:</h1>
+
+    
+        {% for booking in bookings %}
+
+            <h2 class="t-bookings-list">{{booking.booking_date}}</h2>
+        
+        {% endfor %}
+    
+
+
+        <p class="back_to_spaces"><a href="/spaces">Back to Spaces</a></p>
+    </body>
+</html>

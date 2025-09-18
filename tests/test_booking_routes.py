@@ -57,3 +57,50 @@ def test_link_from_booking_confirmation_to_spaces_page(page, test_web_address, d
     expect(page.locator('h1')).to_have_text('All Spaces')
 
 
+"""
+GET /my_bookings/1
+  Parameters: None
+  Expected response (200 OK):
+  "My Bookings:"
+"""
+def test_my_bookings_page_exists_1(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/my_bookings/1')
+    expect(page.locator('h1')).to_have_text('My Bookings:')
+    expect(page.locator('.t-bookings-list')).to_have_text('2025-09-17')
+    # page.click("text=Go to welcome page")
+    # expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
+
+"""
+GET /my_bookings/2
+  Parameters: None
+  Expected response (200 OK):
+  "My Bookings:"
+"""
+def test_my_bookings_page_exists_2(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/my_bookings/2')
+    expect(page.locator('h1')).to_have_text('My Bookings:')
+    expect(page.locator('.t-bookings-list')).to_have_text('2025-08-17')
+
+
+"""
+When I create a booking, I can see that reflected in my_bookings
+"""
+def test_my_bookings_updates_with_new_bookings(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/spaces/1')
+    expect(page.locator('h1')).to_have_text('House_1')
+    page.fill("input[name=booking_date]", '2025-10-17')
+    page.fill("input[name=booking_user_id]", '1')
+    page.click("text=Create booking")
+    expect(page.locator('h1')).to_have_text('Booking created!')
+    page.goto(f'http://{test_web_address}/my_bookings/1')
+    expect(page.locator('h1')).to_have_text('My Bookings:')
+    expect(page.locator('.t-bookings-list')).to_have_text([
+        '2025-09-17',
+        '2025-10-17'
+        ])

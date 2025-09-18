@@ -29,3 +29,10 @@ def apply_booking_routes(app):
     @app.route('/booking_confirmation', methods= ["GET"])
     def get_booking_confirmation():
         return render_template('bookings/booking_confirmation.html')
+
+    @app.route('/my_bookings/<int:booking_user_id>', methods= ["GET"])
+    def get_my_bookings(booking_user_id):
+        connection = get_flask_database_connection(app)
+        booking_repo = BookingRepository(connection)
+        bookings = booking_repo.read_bookings_one_user(booking_user_id)
+        return render_template('bookings/my_bookings.html', bookings = bookings)
