@@ -24,4 +24,9 @@ class BookingRepository:
             for row in table
             ]
 
-
+    def read_bookings_one_user(self, user_id):
+        table = self._connection.execute("SELECT * FROM bookings WHERE booking_user_id = %s", [user_id])
+        return [
+            Booking(row["id"], row["booking_date"], row["space_id"], row["booking_user_id"])
+            for row in table
+            ]
