@@ -11,6 +11,7 @@ body {
     background-size: auto;
     background-blend-mode: overlay;
     color: #333;
+    text-align: center;
 }
 
 .page_title {
@@ -43,7 +44,7 @@ body {
     background-color: rgb(227, 224, 224);
 }
 
-.create_a_space_form{
+.form{
     border: 1px solid #948b8b;
     border-radius: 10px;
     padding: 15px;
@@ -53,7 +54,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.t-errors{
+.t-errors, .t-duplicate_username_error, .t-user_not_found_error{
     color: red;
 }
 
