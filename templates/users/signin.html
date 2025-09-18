@@ -18,6 +18,15 @@
                 <br>
                 <input type="password" name="password" id="password">
             </p>
+            <p>
+                <input type="checkbox" onclick="togglePassword()"> Show Password
+                <script>
+                function togglePassword() {
+                    const pass_field = document.getElementById("password");
+                    pass_field.type = pass_field.type === "password" ? "text" : "password";
+                }
+                </script>
+            </p>
             <p><input type="submit" value="Sign In"></p>
             {%if errors%}
                 <div class="t-errors">
