@@ -94,6 +94,21 @@ def test_post_signin(page, test_web_address, db_connection):
     expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
 
 '''
+when username and password do not match a record in the database, sign in fails
+'''
+
+def test_post_signin_fails_when_username_and_password_incorrect(page, test_web_address, db_connection):
+  page.set_default_timeout(1000)
+  db_connection.seed('seeds/maplebnb.sql')
+  page.goto(f'http://{test_web_address}/')
+  page.fill("input[name=username]", 'Sarahmonster')
+  page.fill("input[name=password]", 'Ilovepony!')
+  page.fill("input[name=confirm_password]", 'Ilovepony!')
+  page.click("text=Sign In")
+  expect(page.locator('.t-user_not_found_error')).to_have_text('An account with those details is not found.')
+
+
+'''
 when there is a duplicate username in the database, show an error when signing up
 '''
 
