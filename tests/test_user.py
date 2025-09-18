@@ -1,4 +1,5 @@
 from lib.user import User
+import hashlib
 
 '''
 When we construct a user, it has an id, username and password
@@ -8,7 +9,8 @@ def test_user_constructs_with_properties():
     user = User(1, 'Username', 'Password!', 'Password!')
     assert user.id == 1
     assert user.username == 'Username'
-    assert user.password == 'Password!'
+    assert user.raw_password == 'Password!'
+    assert user.password == hashlib.sha256('Password!'.encode("utf-8")).hexdigest()
     assert user.confirm_password == 'Password!'
 
 '''
@@ -25,8 +27,11 @@ user objects are formatted as a nice string
 '''
 
 def test_user_formats_nicely_as_a_string():
-    user_1 = User(1, 'Username', 'Password!', 'Password!')
-    assert str(user_1) == 'User(1, Username, Password!, Password!)'
+    raw_password = "Password!"
+    user_1 = User(1, 'Username', raw_password)
+    hashed_password = hashlib.sha256('Password!'.encode("utf-8")).hexdigest()
+    assert str(user_1) == f'User(1, Username, {hashed_password})'
+
 
 '''
 @is_valid returns false if username is empty string
