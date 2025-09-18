@@ -1,5 +1,3 @@
-import hashlib
-
 class User:
     def __init__(self, id, username, password, confirm_password=None):
         self.id = id
@@ -18,23 +16,22 @@ class User:
     def is_valid(self):
         return self.check_username_length() \
             and self.check_password_length() \
-            and self.special_chars() \
-            and self.check_passwords_match()
+            and self.special_chars()
 
     def check_username_length(self):
         return len(self.username) >= 4 and len(self.username) <= 16
 
     def check_password_length(self):
-        return len(self.raw_password)>= 8 and len(self.raw_password) <= 16
+        return len(self.password)>= 8 and len(self.password) <= 16
 
     def special_chars(self):
         special_chars = '!@$%&'
-        return any(char in self.raw_password for char in special_chars)
+        return any(char in self.password for char in special_chars)
 
     def check_passwords_match(self):
         if self.confirm_password is None:
             return True
-        return self.raw_password == self.confirm_password
+        return self.password == self.confirm_password
 
     def generate_errors(self):
         errors = []
@@ -43,7 +40,7 @@ class User:
         if not self.check_password_length() or not self.special_chars():
             errors.append("password must be 8-16 characters in length and contain a special character")
         if not self.check_passwords_match():
-            errors.append("Passwords do not match")
+            errors.append("passwords do not match")
         if len(errors) > 0:
             return ", ".join(errors)
         return None
