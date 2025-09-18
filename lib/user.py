@@ -30,7 +30,9 @@ class User:
         return any(char in self.password for char in special_chars)
 
     def check_passwords_match(self):
-            return self.password == self.confirm_password
+        if self.confirm_password is None:
+            return True
+        return self.password == self.confirm_password
 
     def generate_errors(self):
         errors = []

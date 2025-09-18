@@ -38,8 +38,7 @@ def apply_user_routes(app):
         repo = UserRepository(connection)
         username = request.form['username']
         password = request.form['password']
-        confirm_password = request.form['confirm_password']
-        user = User(None, username, password, confirm_password)
+        user = User(None, username, password)
 
         if not user.is_valid():
             errors = user.generate_errors()

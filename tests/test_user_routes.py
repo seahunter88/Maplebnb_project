@@ -89,7 +89,6 @@ def test_post_signin(page, test_web_address, db_connection):
     page.goto(f'http://{test_web_address}/')
     page.fill("input[name=username]", 'Sarahmonster9000')
     page.fill("input[name=password]", 'Iloveponies!')
-    page.fill("input[name=confirm_password]", 'Iloveponies!')
     page.click("text=Sign In")
     expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
 
@@ -103,7 +102,6 @@ def test_post_signin_fails_when_username_and_password_incorrect(page, test_web_a
   page.goto(f'http://{test_web_address}/')
   page.fill("input[name=username]", 'Sarahmonster')
   page.fill("input[name=password]", 'Ilovepony!')
-  page.fill("input[name=confirm_password]", 'Ilovepony!')
   page.click("text=Sign In")
   expect(page.locator('.t-user_not_found_error')).to_have_text('An account with those details is not found.')
 
@@ -120,6 +118,32 @@ def test_post_signup_with_duplicate_username(page, test_web_address, db_connecti
     page.fill("input[name=password]", 'Password12345!')
     page.fill("input[name=confirm_password]", 'Password12345!')
     page.click("text=Create a new account")
-    print("Current URL after submit:", page.url)
-    print("Page content after submit:", page.content())
     expect(page.locator('.t-duplicate_username_error')).to_have_text('Username is already in use.')
+
+'''
+when passwords do not match on sign up, show an error saying 'passwords do not match'
+'''
+
+def test_post_signup_with_mismatching_passwords(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", 'Sarahmonster123')
+    page.fill("input[name=password]", 'Password12345!')
+    page.fill("input[name=confirm_password]", 'Password123!')
+    page.click("text=Create a new account")
+    expect(page.locator('.t-errors')).to_have_text('Here are your errors: Passwords do not match')
+
+'''
+when passwords do match on sign up, the user is shown the welcome page
+'''
+
+def test_post_signup_with_matching_passwords(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/signup')
+    page.fill("input[name=username]", 'Sarahmonster123')
+    page.fill("input[name=password]", 'Password12345!')
+    page.fill("input[name=confirm_password]", 'Password12345!')
+    page.click("text=Create a new account")
+    expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
