@@ -38,6 +38,12 @@
                         {{errors | safe}} 
                     </div>
                 {%endif%}
+
+                {%if date_errors%}
+                    <div class="t-date_errors">
+                        {{date_errors | safe}} 
+                    </div>
+                {%endif%}
             <p><input type="submit" value="Create booking"></p>
         </form>
         </p>
