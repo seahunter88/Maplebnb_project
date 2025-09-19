@@ -46,15 +46,18 @@ def apply_user_routes(app):
         if not user.is_valid():
             errors = user.generate_errors()
             return render_template('users/signin.html', errors=errors)
-
+        
+        # this finds a User object given a username and password
         db_user = user_repo.find(username, password)
 
         if db_user is None:
             user_not_found = 'An account with those details is not found.'
             return render_template('users/signin.html', user_not_found=user_not_found)
         
+        # the id of the User found when signing is assigned to user_id
         user_id = db_user.id
         
+        # the user_id is used to specify which my_bookings endpoint to redirect to
         return redirect(f'my_bookings/{user_id}')
 
     @app.route('/')
