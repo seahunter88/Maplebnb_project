@@ -23,9 +23,13 @@ def apply_booking_routes(app):
         
         booking_date = request.form['booking_date']
         booking_user_id = request.form['booking_user_id']
-        
         booking = Booking(None, booking_date, space_id, booking_user_id)
-        if not booking_repo.check_booking_is_unique(booking):
+        
+        if not booking.is_valid():
+            date_errors = booking.generate_errors()
+            return render_template('spaces/show_one_space.html', date_errors = date_errors, bookings = bookings, space = space)
+        
+        if not booking_repo.check_booking_is_unique(booking) or not booking_repo.check_user_id_exists(booking):
             errors = booking_repo.generate_errors(booking)
             return render_template('spaces/show_one_space.html', errors=errors, bookings=bookings, space=space)
         

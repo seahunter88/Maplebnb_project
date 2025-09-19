@@ -16,6 +16,12 @@ body {
     position: relative;
 }
 
+ol {
+    list-style-position: inside;
+    padding-left: 0;
+    text-align: center;
+}
+
 .page_title {
     text-align: center;         
     margin: 20px auto;          
@@ -56,7 +62,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.t-errors, .t-duplicate_username_error, .t-user_not_found_error{
+.t-errors, .t-date_errors, .t-duplicate_username_error, .t-user_not_found_error{
     color: red;
 }
 

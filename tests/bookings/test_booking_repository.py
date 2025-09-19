@@ -128,6 +128,25 @@ def test_create_booking_then_read_bookings_one_user(db_connection):
         Booking(2, date(2025, 8, 17), 2, 2),
         Booking(3, date(2025, 10, 15), 1, 2)
     ]
+
+'''
+when we create a new booking with an earlier date and
+when we call @read_bookings_one_user with a user_id
+it returns all the bookings associated with that user_id
+ORDERED by date, ascending order.
+'''
+
+def test_read_bookings_one_user_orders_by_date(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking = Booking(3, '2025-01-15', 1, 2)
+    repo.create(booking)
+    results = repo.read_bookings_one_user(2)
+    assert results == [
+        Booking(3, date(2025, 1, 15), 1, 2),
+        Booking(2, date(2025, 8, 17), 2, 2)
+    ]
+
     
 '''
 when we create a new booking that is not a duplicate,
@@ -225,3 +244,50 @@ def test_generate_errors_does_not_return_string(db_connection):
     booking_1 = Booking(1, '2025-09-19', 1, 1)
     assert repo.check_booking_is_unique(booking_1) == True
     assert repo.generate_errors(booking_1) == None
+    
+'''
+if a user_id exists in the db then @check_user_id_exists returns True
+'''
+
+def test_check_user_id_returns_true_for_existing_user(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(1, '2025-09-19', 1, 1)
+    assert repo.check_user_id_exists(booking_1) == True
+    
+'''
+if a user_id does NOT exist in the db then @check_user_id_exists returns False
+'''
+
+def test_check_user_id_returns_false_for_nonexisting_user(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(1, '2025-09-19', 1, 8)
+    assert repo.check_user_id_exists(booking_1) == False
+    
+'''
+if a user tries to make a booking (with a unique date) 
+with a user id that does not exist
+we get an error message specific to the user not existing
+'''
+
+def test_generate_errors_returns_string_for_invalid_user_id(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(1, '2025-09-20', 1, 8)
+    assert repo.check_user_id_exists(booking_1) == False
+    assert repo.generate_errors(booking_1) == "Are you sure this is your user ID? We cannot find it round the back."
+    
+'''
+if a user tries to make a booking that is a duplicate
+with a user id that does not exist
+we get an error message specific to the user not existing AND the booking being a duplicate
+'''
+
+def test_generate_errors_returns_string_for_invalid_user_id_and_duplicate_booking(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking_1 = Booking(1, '2025-09-17', 1, 8)
+    assert repo.check_user_id_exists(booking_1) == False
+    assert repo.generate_errors(booking_1) == "Unfortunately this space is being used for a Pokemon convention on that date, please try a different date.<br>Are you sure this is your user ID? We cannot find it round the back."
+    
