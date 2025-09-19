@@ -1,5 +1,5 @@
-from lib.space_repository import SpaceRepository
-from lib.space import Space
+from lib.spaces.space_repository import SpaceRepository
+from lib.spaces.space import Space
 
 '''
 Testing read_all_spaces method returns all Spaces from the DB

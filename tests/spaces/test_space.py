@@ -1,4 +1,4 @@
-from lib.space import Space
+from lib.spaces.space import Space
 
 '''
 space initialises with id, title, price and description.

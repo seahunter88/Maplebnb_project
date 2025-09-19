@@ -1,4 +1,4 @@
-from lib.user import User
+from lib.users.user import User
 import hashlib
 
 class UserRepository:

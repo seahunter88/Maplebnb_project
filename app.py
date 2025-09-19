@@ -1,8 +1,8 @@
 import os
 from flask import Flask, request, render_template, redirect
-from user_routes import apply_user_routes
-from space_routes import apply_space_routes
-from booking_routes import apply_booking_routes
+from routes.user_routes import apply_user_routes
+from routes.space_routes import apply_space_routes
+from routes.booking_routes import apply_booking_routes
 
 app = Flask(__name__)
 

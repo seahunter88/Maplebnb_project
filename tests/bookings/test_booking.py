@@ -1,4 +1,4 @@
-from lib.booking import Booking
+from lib.bookings.booking import Booking
 
 '''
 When we construct a booking, it has an id, booking_date, booking_user_id and space_id,
