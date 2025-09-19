@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
-        <h1>{{space.title}}</h1>
+        <h1 class="page_title">{{space.title}}</h1>
         <h2>Price per night: £{{space.price}}</h2>
         <h3>Description: {{space.description}}</h3>
 
@@ -20,24 +20,22 @@
         {% endfor %}
         <p>
 
-        <form action="/spaces/{{space.id}}", method="POST">
-                <div class="form" style="margin: auto;"></div>
-                <p>
-                    <label for="booking_date">Booking Date (YYYY-MM-DD)</label>
-                    <br>
-                    <input type="text" name="booking_date" id="booking_date"></p>
-                    
-                <p>
-                    <label for="booking_user_id">Booking User ID</label>
-                    <br>
-                    <input type="text" name="booking_user_id" id="booking_user_id"></p>
-                    {%if errors%}
-                        <div class="t-errors">
-                            {{errors}}
-                        </div>
-                    {%endif%}
-                <p><input type="submit" value="Create booking"></p>
-            </div>
+        <form class="form" style="margin: auto;" action="/spaces/{{space.id}}", method="POST"> 
+            <p>
+                <label for="booking_date">Booking Date (YYYY-MM-DD)</label>
+                <br>
+                <input type="text" name="booking_date" id="booking_date"></p>
+                
+            <p>
+                <label for="booking_user_id">Booking User ID</label>
+                <br>
+                <input type="text" name="booking_user_id" id="booking_user_id"></p>
+                {%if errors%}
+                    <div class="t-errors">
+                        {{errors}}
+                    </div>
+                {%endif%}
+            <p><input type="submit" value="Create booking"></p>
         </form>
         </p>
             
