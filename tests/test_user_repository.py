@@ -1,6 +1,7 @@
 from lib.user_repository import UserRepository
 from lib.user import User
 import hashlib
+import pytest
 
 '''
 we can instantiate the user repository
@@ -66,8 +67,23 @@ def test_create_user_shows_error_when_username_is_not_unique(db_connection):
     user_1 = User(1, 'Username123', 'Password!', 'Password!')
     user_2 = User(2, 'Username123', 'Password123!', 'Password123!')
     repo.create(user_1)
-    result = repo.create(user_2)
-    assert result == "Username is already in use."
+    with pytest.raises(Exception) as err:
+        repo.create(user_2)
+    error_message = str(err.value)
+    assert error_message == "Username is already in use."
+
+'''
+when we create a user, if the password is blank then it will show an error saying that the password cannot be blank
+'''
+
+def test_create_user_shows_error_when_password_is_blank(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    user_1 = User(1, 'Username123', '')
+    with pytest.raises(Exception) as err:
+        repo.create(user_1)
+    error_message = str(err.value)
+    assert error_message == "Password cannot be blank."
 
 '''
 we want to test that a users password is stored as a hash in the database
@@ -77,13 +93,26 @@ def test_password_is_stored_as_hash(db_connection):
     db_connection.seed('seeds/maplebnb.sql')
     repo = UserRepository(db_connection)
     raw_password = 'I_hate_tests%'
+    hashed_password = hashlib.sha256(raw_password.encode("utf-8")).hexdigest()
     user_1 = User(1, 'Username999', raw_password)
     repo.create(user_1)
-    hashed_password = hashlib.sha256(raw_password.encode("utf-8")).hexdigest()
-    result = repo.find('Username999', raw_password) 
-    assert result.password == hashed_password 
+    result = db_connection.execute("SELECT password FROM users WHERE username = %s", ['Username999'])
+    db_password = result[0]['password']
+    assert db_password == hashed_password
 
-    
+'''
+we want to test that a user's raw password matches with its hashed password in the database
+'''
+
+def test_raw_password_is_matched_with_hashed_password(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    raw_password = 'I_hate_tests%'
+    hashed_password = hashlib.sha256(raw_password.encode("utf-8")).hexdigest()
+    user_1 = User(1, 'Username999', raw_password)
+    repo.create(user_1)
+    result = repo.find('Username999', raw_password)
+    assert result.password == hashed_password
 
 
 

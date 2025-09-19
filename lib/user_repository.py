@@ -13,13 +13,17 @@ class UserRepository:
             ]
 
     def create(self, user):
-        if self.check_username_is_unique(user.username):
-            hashed_password = hashlib.sha256(user.password.encode("utf-8")).hexdigest()
-            table = self._connection.execute("INSERT INTO users (username, password) VALUES (%s, %s) RETURNING id", [user.username, hashed_password])
-            row = table[0]
-            user.id = row['id']
-            return None
-        return "Username is already in use."
+        if not self.check_username_is_unique(user.username):
+            raise Exception("Username is already in use.")
+
+        if not user.password:
+            raise Exception("Password cannot be blank.")
+
+        hashed_password = hashlib.sha256(user.password.encode("utf-8")).hexdigest()
+        table = self._connection.execute("INSERT INTO users (username, password) VALUES (%s, %s) RETURNING id", [user.username, hashed_password])
+        row = table[0]
+        user.id = row['id']
+        return None
 
     def find(self, username, password):
         hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
