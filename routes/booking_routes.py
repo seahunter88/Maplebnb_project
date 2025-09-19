@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for
 from lib.database_connection import get_flask_database_connection
-from lib.booking_repository import BookingRepository
-from lib.booking import Booking
+from lib.bookings.booking_repository import BookingRepository
+from lib.bookings.booking import Booking
 from time import sleep
-from lib.space_repository import SpaceRepository
-from lib.user_repository import UserRepository
+from lib.spaces.space_repository import SpaceRepository
+from lib.users.user_repository import UserRepository
     
 
 def apply_booking_routes(app):

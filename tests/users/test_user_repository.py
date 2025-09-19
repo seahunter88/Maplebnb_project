@@ -1,5 +1,5 @@
-from lib.user_repository import UserRepository
-from lib.user import User
+from lib.users.user_repository import UserRepository
+from lib.users.user import User
 import hashlib
 import pytest
 

@@ -1,4 +1,4 @@
-from lib.user import User
+from lib.users.user import User
 
 '''
 When we construct a user, it has an id, username and password

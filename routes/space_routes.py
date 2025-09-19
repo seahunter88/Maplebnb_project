@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, redirect
 from lib.database_connection import get_flask_database_connection
-from lib.space_repository import SpaceRepository
-from lib.space import Space
-from lib.booking_repository import BookingRepository
+from lib.spaces.space_repository import SpaceRepository
+from lib.spaces.space import Space
+from lib.bookings.booking_repository import BookingRepository
 
 def apply_space_routes(app):
     @app.route('/spaces', methods=['GET'])

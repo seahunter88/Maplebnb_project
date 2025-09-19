@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, redirect
 from lib.database_connection import get_flask_database_connection
-from lib.user_repository import UserRepository
-from lib.user import User
-from lib.booking_repository import BookingRepository
+from lib.users.user_repository import UserRepository
+from lib.users.user import User
+from lib.bookings.booking_repository import BookingRepository
 
 def apply_user_routes(app):
     @app.route('/signup', methods = ['POST'])
