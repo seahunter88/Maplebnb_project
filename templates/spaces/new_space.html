@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
+        <img src="/static/tortoise_transparent.png" class="team_logo">
         <h1 class="page_title">Create a Space</h1>
         <form action="/spaces/new", method="POST">
             <div class="form" style="margin: auto;">
@@ -30,17 +31,19 @@
                     <input type="text" name="user_id" id="user_id">
                 </p>     
                 <p><input type="submit" value="Create a new space"></p>
-            {%if errors%}
-            <div class="t-errors">
-                Here are your errors:
-                {% for error in errors %}
-                <li>
-                    {{error}}
-                </li>
-                {% endfor %}
-            </div>
-            {%endif%}
+                {%if errors%}
+                <div class="t-errors">
+                    Here are your errors:
+                    {% for error in errors %}
+                    <li>
+                        {{error}}
+                    </li>
+                    {% endfor %}
+                </div>
+                {%endif%}
             </div>
         </form>
+        <p><a href="/">View All Bookings</a></p>
+        <p><a href="/spaces">Back to Spaces</a></p>
     </body>
 </html>
