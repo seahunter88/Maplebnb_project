@@ -6,17 +6,19 @@
         <link rel="stylesheet" href="/static/style.css" >
     </head>
     <body>
-        <h1 class="page_title">My Bookings:</h1>
+        <h1 class = "page_title"> Welcome back, {{user.username}}! <br>
+            <br>
+            Here are your bookings:</h1>
 
     
         {% for booking in bookings %}
 
-            <h2 class="t-bookings-list">{{booking.booking_date}}</h2>
+            <h2 class="t-bookings-list">{{booking.space_title}} on {{booking.booking_date}}</h2>
         
         {% endfor %}
     
 
-
+        <h4><a href="/spaces/new">Want to list a new space? Click here!</a></h4>
         <p class="back_to_spaces"><a href="/spaces">Back to Spaces</a></p>
     </body>
 </html>

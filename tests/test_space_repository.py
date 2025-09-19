@@ -32,3 +32,4 @@ def test_create_space(db_connection):
     repo.create_space(new_space)
     space = repo.read_one_space(3)
     assert space == Space(3, 'House_3', 50, 'a not so nice house', 2)
+    

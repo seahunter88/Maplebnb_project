@@ -62,3 +62,33 @@ def test_create_user_shows_error_when_username_is_not_unique(db_connection):
     result = repo.create(user_2)
     assert result == "Username is already in use."
 
+'''
+@read_one_user returns a user object given the correct id
+'''
+
+def test_read_one_user_returns_correct_user(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    assert repo.read_one_user(1) == User(1, 'Sarahmonster9000', 'Iloveponies!')
+    
+
+'''
+@read_one_user returns a user object given the correct id
+'''
+
+def test_read_one_user_returns_correct_user_2(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    assert repo.read_one_user(2) == User(2, 'HunoristheGOAT', 'Pokemon$')
+    
+'''
+@get_user_id returns an id from a given User object
+'''
+
+def test_get_user_id_returns_id(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    user_1 = User(3, 'Username123', 'Password!', 'Password!')
+    assert repo.get_user_id(user_1) == 3
+    
+
