@@ -48,6 +48,14 @@ class UserRepository:
     def check_username_is_unique(self, username):
         table = self._connection.execute("SELECT * FROM users WHERE username = %s", [username])
         return table == []
+    
+
+    def delete(self, user_id):
+        result = self._connection.execute('DELETE FROM users where id = %s RETURNING id', [user_id])
+        if not result:
+            raise Exception("User not found!")
+        
+
 
 
 

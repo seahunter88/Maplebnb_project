@@ -161,3 +161,30 @@ def test_post_signup_with_mismatching_and_invalid_passwords(page, test_web_addre
     page.fill("input[name=confirm_password]", 'Passw')
     page.click("text=Create a new account")
     expect(page.locator('.t-errors')).to_have_text('Here are your errors: password must be 8-16 characters in length and contain a special character, passwords do not match')
+
+'''
+when user deletes a valid account, the user is shown the goodbye page
+'''
+
+def test_post_delete_user_with_valid_account_details(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/delete_account')
+    page.fill("input[name=username]", 'Sarahmonster9000')
+    page.fill("input[name=password]", 'Iloveponies!')
+    page.click("text=Delete account")
+    expect(page.locator('h1')).to_have_text('We are sorry to see you go!')
+
+
+'''
+when user deletes an invalid account, the user is shown an error message on that page
+'''
+
+def test_post_delete_user_with_invalid_account_details(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/delete_account')
+    page.fill("input[name=username]", 'Sarahmonster9000')
+    page.fill("input[name=password]", 'Ilovehorses!')
+    page.click("text=Delete account")
+    expect(page.locator('.t-user_not_found_error')).to_have_text('An account with those details is not found.')
