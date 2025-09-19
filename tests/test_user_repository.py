@@ -124,8 +124,8 @@ def test_raw_password_is_matched_with_hashed_password(db_connection):
 def test_read_one_user_returns_correct_user(db_connection):
     db_connection.seed('seeds/maplebnb.sql')
     repo = UserRepository(db_connection)
-    assert repo.read_one_user(1) == User(1, 'Sarahmonster9000', 'Iloveponies!')
-    
+    assert repo.read_one_user(1) == User(1, 'Sarahmonster9000', '7aed73f28e36516d6b1af81271bccdc732b5abf3e17b5a56acda5a7a13f30dc3')
+
 
 '''
 @read_one_user returns a user object given the correct id
@@ -134,8 +134,8 @@ def test_read_one_user_returns_correct_user(db_connection):
 def test_read_one_user_returns_correct_user_2(db_connection):
     db_connection.seed('seeds/maplebnb.sql')
     repo = UserRepository(db_connection)
-    assert repo.read_one_user(2) == User(2, 'HunoristheGOAT', 'Pokemon$')
-    
+    assert repo.read_one_user(2) == User(2, 'HunoristheGOAT', '39d4b14056843a7719d9612663b05e6d6bbe5db862fa944394bc4c205a8b0ab8')
+
 '''
 @get_user_id returns an id from a given User object
 '''
@@ -145,5 +145,5 @@ def test_get_user_id_returns_id(db_connection):
     repo = UserRepository(db_connection)
     user_1 = User(3, 'Username123', 'Password!', 'Password!')
     assert repo.get_user_id(user_1) == 3
-    
+
 
