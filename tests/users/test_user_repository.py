@@ -146,4 +146,30 @@ def test_get_user_id_returns_id(db_connection):
     user_1 = User(3, 'Username123', 'Password!', 'Password!')
     assert repo.get_user_id(user_1) == 3
 
+'''
+@delete deletes a user from the database
+'''
+
+def test_deletes_a_user_from_the_database(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    repo.delete(1)
+    assert repo.all()== [
+        User(2, 'HunoristheGOAT', '39d4b14056843a7719d9612663b05e6d6bbe5db862fa944394bc4c205a8b0ab8')
+    ]
+
+'''
+if the user id is not in the database no user is deleted
+'''
+
+def test_if_the_user_id_is_not_in_the_database_no_user_is_deleted(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = UserRepository(db_connection)
+    with pytest.raises(Exception) as e:
+        repo.delete(3)
+    error_message = str(e.value) 
+    assert error_message == "User not found!"   
+
+
+
 
