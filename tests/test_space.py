@@ -42,7 +42,7 @@ def test_title_length_too_short():
     assert space.check_title() == False
 
 def test_title_length_too_long():
-    space = Space(1, 'abcdabcdabcdabcdabcda', 1, 'desc', 1)
+    space = Space(1, 'abcdabcdabcdabcdabcd abcdabcdabcdabcdabcd abcdabcdabcdabcdabcd abcdabcdabcdabcdabcd abcdabcdabcdabcdabcd abc', 1, 'desc', 1)
     assert space.check_title() == False
 
 """

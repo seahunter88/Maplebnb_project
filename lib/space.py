@@ -18,7 +18,7 @@ class Space():
             and self.check_description()
 
     def check_title(self):
-        return len(self.title) >= 4 and len(self.title) <= 20
+        return len(self.title) >= 4 and len(self.title) <= 100
     
     def check_price(self):
         return isinstance(self.price, int) and self.price >= 20

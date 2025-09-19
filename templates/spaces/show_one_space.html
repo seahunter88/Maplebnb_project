@@ -10,7 +10,9 @@
         <h2>Price per night: £{{space.price}}</h2>
         <h3>Description: {{space.description}}</h3>
 
+        {% if bookings %}
         <h4>This space is not available on the following dates:</h4>
+        {% endif %}
         {% for booking in bookings %}
             
             <article>
@@ -18,6 +20,7 @@
             </article>
 
         {% endfor %}
+        
         <p>
 
         <form action="/spaces/{{space.id}}", method="POST">
