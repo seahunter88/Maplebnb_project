@@ -1,4 +1,4 @@
-from lib.booking import Booking
+from lib.bookings.booking import Booking
 
 class BookingRepository:
     def __init__(self, connection):

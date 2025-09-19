@@ -1,4 +1,4 @@
-from lib.space import Space
+from lib.spaces.space import Space
 
 class SpaceRepository():
     def __init__(self, connection):
