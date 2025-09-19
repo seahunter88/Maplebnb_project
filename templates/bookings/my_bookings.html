@@ -10,16 +10,14 @@
             <br>
             Here are your bookings:</h1>
 
-    
-        <ol>
-        
-        {% for booking in bookings %} 
+            <ol>
+            
+            {% for booking in bookings %} 
 
-            <li class="t-bookings-list">{{booking.space_title}} on {{booking.booking_date}}</li>
-        
-        {% endfor %}
-        </ol>
-    
+                <li class="t-bookings-list">{{booking.space_title}} on {{booking.booking_date}}</li>
+            
+            {% endfor %}
+            </ol>
 
         <h4><a href="/spaces/new">Want to list a new space? Click here!</a></h4>
         <p class="back_to_spaces"><a href="/spaces">Back to Spaces</a></p>
