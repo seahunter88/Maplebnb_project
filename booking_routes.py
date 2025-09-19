@@ -4,6 +4,7 @@ from lib.booking_repository import BookingRepository
 from lib.booking import Booking
 from time import sleep
 from lib.space_repository import SpaceRepository
+from lib.user_repository import UserRepository
     
 
 def apply_booking_routes(app):
@@ -34,9 +35,25 @@ def apply_booking_routes(app):
     @app.route('/my_bookings/<int:booking_user_id>', methods= ["GET"])
     def get_my_bookings(booking_user_id):
         connection = get_flask_database_connection(app)
+        
+        user_repo = UserRepository(connection)
         booking_repo = BookingRepository(connection)
+        space_repo = SpaceRepository(connection)
+        
+        user = user_repo.read_one_user(booking_user_id)
+        
+        # we get all the bookings associated with one user
         bookings = booking_repo.read_bookings_one_user(booking_user_id)
-        return render_template('bookings/my_bookings.html', bookings = bookings)
+        
+        # we iterate over the bookings list generated
+        # the variable space becomes a Space object that is returned based on each booking's space id
+        # each booking in the booking list then gets a new attribute called space_title
+        # this attribute is the title of the space object created in the first line
+        for booking in bookings:
+            space = space_repo.read_one_space(booking.space_id)
+            booking.space_title = space.title
+        
+        return render_template('bookings/my_bookings.html', bookings = bookings, user = user)
     
     @app.route('/welcome', methods = ['POST'])
     def post_my_bookings():

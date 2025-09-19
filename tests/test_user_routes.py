@@ -90,7 +90,7 @@ def test_post_signin(page, test_web_address, db_connection):
     page.fill("input[name=username]", 'Sarahmonster9000')
     page.fill("input[name=password]", 'Iloveponies!')
     page.click("text='Sign In'")
-    expect(page.locator('h1')).to_have_text('My Bookings:')
+    expect(page.locator('h1')).to_have_text('Welcome back, Sarahmonster9000! Here are your bookings:')
 
 '''
 when username and password do not match a record in the database, sign in fails

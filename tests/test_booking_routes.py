@@ -67,8 +67,8 @@ def test_my_bookings_page_exists_1(page, test_web_address, db_connection):
     page.set_default_timeout(1000)
     db_connection.seed('seeds/maplebnb.sql')
     page.goto(f'http://{test_web_address}/my_bookings/1')
-    expect(page.locator('h1')).to_have_text('My Bookings:')
-    expect(page.locator('.t-bookings-list')).to_have_text('2025-09-17')
+    expect(page.locator('h1')).to_have_text('Welcome back, Sarahmonster9000! Here are your bookings:')
+    expect(page.locator('.t-bookings-list')).to_have_text('House_1, 2025-09-17')
     # page.click("text=Go to welcome page")
     # expect(page.locator('h1')).to_have_text('Welcome to Maplebnb!')
 
@@ -82,8 +82,8 @@ def test_my_bookings_page_exists_2(page, test_web_address, db_connection):
     page.set_default_timeout(1000)
     db_connection.seed('seeds/maplebnb.sql')
     page.goto(f'http://{test_web_address}/my_bookings/2')
-    expect(page.locator('h1')).to_have_text('My Bookings:')
-    expect(page.locator('.t-bookings-list')).to_have_text('2025-08-17')
+    expect(page.locator('h1')).to_have_text('Welcome back, HunoristheGOAT! Here are your bookings:')
+    expect(page.locator('.t-bookings-list')).to_have_text('House_2, 2025-08-17')
 
 
 """
@@ -99,10 +99,10 @@ def test_my_bookings_updates_with_new_bookings(page, test_web_address, db_connec
     page.click("text=Create booking")
     expect(page.locator('h1')).to_have_text('Booking created!')
     page.goto(f'http://{test_web_address}/my_bookings/1')
-    expect(page.locator('h1')).to_have_text('My Bookings:')
+    expect(page.locator('h1')).to_have_text('Welcome back, Sarahmonster9000! Here are your bookings:')
     expect(page.locator('.t-bookings-list')).to_have_text([
-        '2025-09-17',
-        '2025-10-17'
+        'House_1, 2025-09-17',
+        'House_1, 2025-10-17'
         ])
     
 """
@@ -126,8 +126,8 @@ def test_welcome_page_form_redirects_to_my_bookings_page(page, test_web_address,
     expect(page.locator('h2')).to_have_text('View your bookings:')
     page.fill("input[name=user_id]", '1')
     page.click("text=Submit")
-    expect(page.locator('h1')).to_have_text('My Bookings:')
-    expect(page.locator('.t-bookings-list')).to_have_text('2025-09-17')
+    expect(page.locator('h1')).to_have_text('Welcome back, Sarahmonster9000! Here are your bookings:')
+    expect(page.locator('.t-bookings-list')).to_have_text('House_1, 2025-09-17')
     
 """
 When I visit the welcome page, I can input my user id and see my_bookings page.
@@ -140,8 +140,8 @@ def test_welcome_page_form_redirects_to_my_bookings_page_2(page, test_web_addres
     expect(page.locator('h2')).to_have_text('View your bookings:')
     page.fill("input[name=user_id]", '2')
     page.click("text=Submit")
-    expect(page.locator('h1')).to_have_text('My Bookings:')
-    expect(page.locator('.t-bookings-list')).to_have_text('2025-08-17')
+    expect(page.locator('h1')).to_have_text('Welcome back, HunoristheGOAT! Here are your bookings:')
+    expect(page.locator('.t-bookings-list')).to_have_text('House_2, 2025-08-17')
     
 """
 When I create a new booking and then go to welcome and then to my_bookings, 
@@ -159,10 +159,10 @@ def test_create_booking_shows_in_my_bookings(page, test_web_address, db_connecti
     page.click("text=Go to welcome page")
     page.fill("input[name=user_id]", '1')
     page.click("text=Submit")
-    expect(page.locator('h1')).to_have_text('My Bookings:')
+    expect(page.locator('h1')).to_have_text('Welcome back, Sarahmonster9000! Here are your bookings:')
     expect(page.locator('.t-bookings-list')).to_have_text([
-      '2025-09-17',
-      '2025-10-17'
+      'House_1, 2025-09-17',
+      'House_1, 2025-10-17'
     ])
 
 """
@@ -227,5 +227,5 @@ def test_show_one_space_does_not_have_error_message(page, test_web_address, db_c
     db_connection.seed('seeds/maplebnb.sql')
     page.goto(f'http://{test_web_address}/spaces/2')
     expect(page.locator('h1')).to_have_text('House_2')
-    # expect(page.locator('.t-errors')).not.toContainText('Unfortunately this space is being used for a Pokemon convention on that date, please try a different date.')
+    expect(page.locator('.t-errors')).to_have_count(0)
     

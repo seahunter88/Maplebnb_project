@@ -30,6 +30,13 @@ class UserRepository:
 
         return User(row['id'], row['username'], row['password'])
     
+    def read_one_user(self, user_id):
+        rows = self._connection.execute('SELECT * FROM users where id = %s', [user_id])
+        row = rows[0]
+        return User(row['id'], row['username'], row['password'])
+    
+    def get_user_id(self, user):
+        return user.id
 
     def check_username_is_unique(self, username):
         table = self._connection.execute("SELECT * FROM users WHERE username = %s", [username])
