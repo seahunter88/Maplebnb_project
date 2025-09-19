@@ -35,7 +35,7 @@
                 <input type="text" name="booking_user_id" id="booking_user_id"></p>
                 {%if errors%}
                     <div class="t-errors">
-                        {{errors}}
+                        {{errors | safe}} 
                     </div>
                 {%endif%}
             <p><input type="submit" value="Create booking"></p>
