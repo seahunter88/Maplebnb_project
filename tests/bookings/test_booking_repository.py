@@ -1,5 +1,5 @@
-from lib.booking_repository import BookingRepository
-from lib.booking import Booking
+from lib.bookings.booking_repository import BookingRepository
+from lib.bookings.booking import Booking
 from datetime import date
 
 
