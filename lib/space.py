@@ -18,7 +18,7 @@ class Space():
             and self.check_description()
 
     def check_title(self):
-        return len(self.title) >= 4 and len(self.title) <= 20
+        return len(self.title) >= 4 and len(self.title) <= 100
     
     def check_price(self):
         return isinstance(self.price, int) and self.price >= 20
@@ -35,5 +35,5 @@ class Space():
         if not self.check_description():
             errors.append("a description must be at least 3 words in length")
         if len(errors) > 0:
-            return ", ".join(errors)
+            return errors
         return None

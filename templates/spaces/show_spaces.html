@@ -3,24 +3,20 @@
     <head>
         <meta charset="UTF-8">
         <title>MapleBnB</title>
-
-        <!--
-            Head to https://github.com/makersacademy/web-applications-in-python/blob/main/pills/loading_css_or_static_files.md
-            If you're wondering how the CSS file below is being loaded.
-        -->
-        <link rel="stylesheet" href="/static/style.css" >
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
-        <h1>All Spaces</h1>
-        {% for space in spaces %}
-            
-            <article>
-                <h2><a href="/spaces/{{space.id}}">{{space.title}}</a></h2>
-            </article>
-
-        {% endfor %}
-
-    
+        <h1 class="page_title">All Spaces</h1>
+        <div class="card_grid">
+            {% for space in spaces %}
+                <article class="space_card">
+                    <div>
+                        <h2><a href="/spaces/{{space.id}}">{{space.title}}</a></h2>
+                        <h3>£{{space.price}}/Night</h3>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+        <h4><a href="/spaces/new">Want to list a new space? Click here!</a></h2>
     </body>
-
 </html>

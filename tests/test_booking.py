@@ -28,3 +28,4 @@ booking objects are formatted as a nice string
 def test_booking_formats_nicely_as_a_string():
     booking_1 = Booking(1, '2025-09-17', 1, 1)
     assert str(booking_1) == 'Booking(1, 2025-09-17, 1, 1)'
+    

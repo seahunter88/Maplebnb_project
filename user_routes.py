@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect
 from lib.database_connection import get_flask_database_connection
 from lib.user_repository import UserRepository
 from lib.user import User
+from lib.booking_repository import BookingRepository
 
 def apply_user_routes(app):
     @app.route('/signup', methods = ['POST'])
@@ -35,22 +36,29 @@ def apply_user_routes(app):
     @app.route('/', methods = ['POST'])
     def find_user():
         connection = get_flask_database_connection(app)
-        repo = UserRepository(connection)
+        user_repo = UserRepository(connection)
         username = request.form['username']
         password = request.form['password']
+        
         user = User(None, username, password)
+        
 
         if not user.is_valid():
             errors = user.generate_errors()
             return render_template('users/signin.html', errors=errors)
-
-        db_user = repo.find(username, password)
+        
+        # this finds a User object given a username and password
+        db_user = user_repo.find(username, password)
 
         if db_user is None:
             user_not_found = 'An account with those details is not found.'
             return render_template('users/signin.html', user_not_found=user_not_found)
-
-        return redirect('/welcome')
+        
+        # the id of the User found when signing is assigned to user_id
+        user_id = db_user.id
+        
+        # the user_id is used to specify which my_bookings endpoint to redirect to
+        return redirect(f'my_bookings/{user_id}')
 
     @app.route('/')
     def signin_user():

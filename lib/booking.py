@@ -10,3 +10,4 @@ class Booking:
 
     def __repr__(self):
         return f'Booking({self.id}, {self.booking_date}, {self.space_id}, {self.booking_user_id})'
+    
