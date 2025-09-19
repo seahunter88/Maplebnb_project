@@ -37,13 +37,14 @@ def apply_booking_routes(app):
         # the redirect uses the URL from @get_booking_confirmation
         # the booking_date parameter is from the form submitted 
         # the space_title parameter is from the Space object returned from read_one_space
-        return redirect(url_for('get_booking_confirmation', booking_date = booking_date, space_title = space.title))
+        return redirect(url_for('get_booking_confirmation', booking_date = booking_date, space_title = space.title, booking_user_id=booking_user_id))
 
     @app.route('/booking_confirmation', methods= ["GET"])
     def get_booking_confirmation():
         booking_date = request.args.get('booking_date')
         space_title = request.args.get('space_title')
-        return render_template('bookings/booking_confirmation.html', booking_date = booking_date, space_title = space_title)
+        booking_user_id = request.args.get('booking_user_id')
+        return render_template('bookings/booking_confirmation.html', booking_date = booking_date, space_title = space_title, booking_user_id=booking_user_id)
 
     @app.route('/my_bookings/<int:booking_user_id>', methods= ["GET"])
     def get_my_bookings(booking_user_id):

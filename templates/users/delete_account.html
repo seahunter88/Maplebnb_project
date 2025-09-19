@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Sign In</title>
+        <title>Delete your account</title>
         <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
         <img src="/static/tortoise_transparent.png" class="team_logo">
-        <h1 class="page_title">MapleBnB Sign In</h1>
-        <form class="form" action="/", method="POST" style="margin: auto;">
+        <h1 class="page_title">Are you sure you want to delete your account?</h1>
+        <form class="form" action="/delete_account" method="POST" style="margin: auto;">
             <p>
                 <label for="username">Username</label>
                 <br>
@@ -28,21 +28,12 @@
                 }
                 </script>
             </p>
-            <p><input type="submit" value="Sign In"></p>
-            {%if errors%}
-                <div class="t-errors">
-                    Here are your errors: {{errors}}
-                </div>
-            {%endif%}
-    
+            <p><input type="submit" value="Delete account"></p>
+
             {% if user_not_found %}
                 <div class="t-user_not_found_error">
                     {{user_not_found }}
                 </div>
             {% endif %}
-
-            <p>Don't have an account?</p>
-            <p><a href="/signup">Sign Up</a></p>
-        </p>
     </body>
 </html>
