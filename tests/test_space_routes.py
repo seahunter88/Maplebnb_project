@@ -92,3 +92,34 @@ def test_return_to_show_all(page, db_connection, test_web_address):
     page.goto(f'http://{test_web_address}/spaces/1')
     page.click("text=Back to Spaces")
     expect(page.locator('h1')).to_have_text("All Spaces")
+    
+"""
+Creating a space redirects to all spaces
+"""
+def test_create_a_space_redirects_to_all_spaces(page, db_connection, test_web_address):
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/spaces/new')
+    expect(page.locator('h1')).to_have_text('Create a Space')
+    page.fill("input[name=title]", 'House_3')
+    page.fill("input[name=price]", '50')
+    page.fill("input[name=description]", 'A lovely house')
+    page.fill("input[name=user_id]", '1')
+    page.click("text=Create a new space")
+    expect(page.locator('h1')).to_have_text("All Spaces")
+    
+"""
+After creating a new space and visiting its spaces/ page
+It does not display "This space is not available on the following dates:"
+"""
+def test_new_space_does_not_show_unavailable_dates(page, db_connection, test_web_address):
+    db_connection.seed('seeds/maplebnb.sql')
+    page.goto(f'http://{test_web_address}/spaces/new')
+    expect(page.locator('h1')).to_have_text('Create a Space')
+    page.fill("input[name=title]", 'House_3')
+    page.fill("input[name=price]", '50')
+    page.fill("input[name=description]", 'A lovely house')
+    page.fill("input[name=user_id]", '1')
+    page.click("text=Create a new space")
+    expect(page.locator('h1')).to_have_text("All Spaces")
+    page.goto(f'http://{test_web_address}/spaces/3')
+    expect(page.locator('h4')).to_have_count(0)
