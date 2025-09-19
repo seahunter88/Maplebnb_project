@@ -11,11 +11,14 @@
             Here are your bookings:</h1>
 
     
-        {% for booking in bookings %}
+        <ol>
+        
+        {% for booking in bookings %} 
 
-            <h2 class="t-bookings-list">{{booking.space_title}} on {{booking.booking_date}}</h2>
+            <li class="t-bookings-list">{{booking.space_title}} on {{booking.booking_date}}</li>
         
         {% endfor %}
+        </ol>
     
 
         <h4><a href="/spaces/new">Want to list a new space? Click here!</a></h4>

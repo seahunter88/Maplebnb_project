@@ -128,6 +128,25 @@ def test_create_booking_then_read_bookings_one_user(db_connection):
         Booking(2, date(2025, 8, 17), 2, 2),
         Booking(3, date(2025, 10, 15), 1, 2)
     ]
+
+'''
+when we create a new booking with an earlier date and
+when we call @read_bookings_one_user with a user_id
+it returns all the bookings associated with that user_id
+ORDERED by date, ascending order.
+'''
+
+def test_read_bookings_one_user_orders_by_date(db_connection):
+    db_connection.seed('seeds/maplebnb.sql')
+    repo = BookingRepository(db_connection)
+    booking = Booking(3, '2025-01-15', 1, 2)
+    repo.create(booking)
+    results = repo.read_bookings_one_user(2)
+    assert results == [
+        Booking(3, date(2025, 1, 15), 1, 2),
+        Booking(2, date(2025, 8, 17), 2, 2)
+    ]
+
     
 '''
 when we create a new booking that is not a duplicate,
