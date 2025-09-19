@@ -39,24 +39,23 @@ def apply_user_routes(app):
         user_repo = UserRepository(connection)
         username = request.form['username']
         password = request.form['password']
-        
+
         user = User(None, username, password)
-        
 
         if not user.is_valid():
             errors = user.generate_errors()
             return render_template('users/signin.html', errors=errors)
-        
+
         # this finds a User object given a username and password
         db_user = user_repo.find(username, password)
 
         if db_user is None:
             user_not_found = 'An account with those details is not found.'
             return render_template('users/signin.html', user_not_found=user_not_found)
-        
+
         # the id of the User found when signing is assigned to user_id
         user_id = db_user.id
-        
+
         # the user_id is used to specify which my_bookings endpoint to redirect to
         return redirect(f'my_bookings/{user_id}')
 
@@ -64,4 +63,28 @@ def apply_user_routes(app):
     def signin_user():
         return render_template('users/signin.html')
 
+    @app.route('/delete_account', methods=['POST'])
+    def delete_user():
+        connection = get_flask_database_connection(app)
+        repo = UserRepository(connection)
 
+        username = request.form['username']
+        password = request.form['password']
+
+        user = repo.find(username, password)
+
+        if user is None:
+            user_not_found = 'An account with those details is not found.'
+            return render_template('users/delete_account.html', user_not_found=user_not_found)
+
+        repo.delete(user.id)
+
+        return redirect('/goodbye')
+
+    @app.route('/delete_account')
+    def show_delete_user():
+        return render_template('users/delete_account.html')
+
+    @app.route('/goodbye')
+    def goodbye_user():
+        return render_template('users/goodbye.html')
