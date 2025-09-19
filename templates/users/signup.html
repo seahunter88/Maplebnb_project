@@ -53,7 +53,22 @@
                 {{password_mismatch_error}}
             </div>
             {%endif%}
-        </form>
-        <p><a href="/">Sign In</a></p>
+
+                <p>
+                    <label for="username">Username</label>
+                    <br>
+                    <input type="text" name="username" id="username"></p>
+                <p>
+                    <label for="password">Password</label>
+                    <br>
+                    <input type="text" name="password" id="password"></p>
+                <p>
+                    <label for="password">Confirm password</label>
+                    <br>
+                    <input type="text" name="confirm_password" id="confirm_password"></p>
+                <p><input type="submit" value="Create a new account"></p>
+                <p>Already have an account?</p>
+                 <p><a href="/">Sign In</a></p>
+        </p>
     </body>
 </html>

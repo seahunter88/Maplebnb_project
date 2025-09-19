@@ -39,8 +39,8 @@ CREATE TABLE bookings (
     on delete cascade
 );
 
-INSERT INTO users (username, password) VALUES ('Sarahmonster9000', 'Iloveponies!');
-INSERT INTO users (username, password) VALUES ('HunoristheGOAT', 'Pokemon$');
+INSERT INTO users (username, password) VALUES ('Sarahmonster9000', '7aed73f28e36516d6b1af81271bccdc732b5abf3e17b5a56acda5a7a13f30dc3');
+INSERT INTO users (username, password) VALUES ('HunoristheGOAT', '39d4b14056843a7719d9612663b05e6d6bbe5db862fa944394bc4c205a8b0ab8');
 
 INSERT INTO spaces (title, price, description, user_id) VALUES ('House_1', '100', 'a nice house', 1);
 INSERT INTO spaces (title, price, description, user_id) VALUES ('House_2', '150', 'a nicer house', 1);

@@ -9,7 +9,7 @@ class User:
         return self.__dict__ == other.__dict__
 
     def __repr__(self):
-        return f'User({self.id}, {self.username}, {self.password}, {self.confirm_password})'
+        return f'User({self.id}, {self.username}, {self.password})'
 
 # @is_valid returns false if any of the other methods return false
 # if all the methods are true then is_valid returns true
@@ -22,7 +22,7 @@ class User:
         return len(self.username) >= 4 and len(self.username) <= 16
 
     def check_password_length(self):
-        return len(self.password) >= 8 and len(self.password) <= 16
+        return len(self.password)>= 8 and len(self.password) <= 16
 
     def special_chars(self):
         special_chars = '!@$%&'
